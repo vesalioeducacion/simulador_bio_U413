@@ -1,0 +1,2243 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BIOLOGÍA - Eje Hipotálamo-Hipofisario y Retroalimentación Neuroendocrina (Facultad de Cs. Médicas - UCCuyo)</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            accent: {
+              DEFAULT: '#436600',
+              hover: '#355200',
+              light: '#f2f7e8',
+              border: '#c2d699'
+            },
+            pituitary: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              500: '#0284c7',
+              700: '#0369a1',
+              900: '#0c4a6e',
+            },
+            vascular: {
+              50: '#fff1f2',
+              100: '#ffe4e6',
+              500: '#e11d48',
+              600: '#be123c',
+              700: '#9f1239',
+            },
+            thyroid: {
+              50: '#fffbeb',
+              100: '#fef3c7',
+              500: '#d97706',
+              600: '#b45309',
+            },
+            adrenal: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#16a34a',
+              700: '#15803d',
+            },
+            gonadal: {
+              50: '#faf5ff',
+              500: '#9333ea',
+              700: '#7e22ce',
+            }
+          },
+          fontFamily: {
+            sans: ['Outfit', 'Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Outfit, Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- KaTeX for Scientific & Medical Typesetting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <!-- Chart.js for Dynamic Physiological Loops -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    /* Estilo Institucional UCCuyo */
+    .text-accent { color: #436600; }
+    .bg-accent { background-color: #436600; }
+    .bg-accent-hover:hover { background-color: #355200; }
+    .border-accent { border-color: #436600; }
+
+    .custom-scroll::-webkit-scrollbar,
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track,
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 9999px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb,
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb:hover,
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    @keyframes pulseSubtle {
+      0%, 100% { opacity: 0.95; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+    .pulse-node {
+      animation: pulseSubtle 3s infinite ease-in-out;
+    }
+    .latex-eq { font-size: 1.05rem; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-slate-50 text-slate-800 antialiased selection:bg-accent selection:text-white font-sans">
+
+  <!-- ==================== CABECERA INSTITUCIONAL UCCUYO ==================== -->
+  <header class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50 no-math">
+    <div class="max-w-7xl mx-auto px-4 py-3 sm:py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-accent flex items-center justify-center text-white font-bold text-xl shadow-md">
+          BIO
+        </div>
+        <div>
+          <h1 class="text-base sm:text-lg font-bold text-gray-800 tracking-wide uppercase">BIOLOGÍA Y FISIOLOGÍA MÉDICA</h1>
+          <p class="text-xs text-gray-500 font-semibold">Curso de Ingreso a Medicina (Facultad de Cs. Médicas - UCCuyo)</p>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-2">
+        <!-- Botón Vademécum Endocrinológico -->
+        <button onclick="openFormulasModal()" class="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 text-gray-700 text-xs font-semibold rounded-lg border border-gray-200 hover:bg-gray-200 transition">
+          <i class="fa-solid fa-book-bookmark text-accent"></i>
+          <span class="hidden sm:inline">Vademécum</span>
+        </button>
+        <!-- Botón Guía de Uso -->
+        <button onclick="openTutorial()" class="flex items-center gap-1.5 px-3 py-1.5 bg-accent text-white text-xs font-semibold rounded-lg shadow-sm hover:opacity-90 transition">
+          <i class="fa-solid fa-circle-question"></i>
+          <span>Guía de Uso</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== CONTENEDOR PRINCIPAL CON BARRA LATERAL ==================== -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 flex flex-col lg:flex-row gap-6">
+    
+    <!-- Menú de Navegación Lateral en 2 Columnas -->
+    <nav class="w-full lg:w-64 shrink-0 flex flex-row lg:flex-col gap-2 bg-white p-3 rounded-2xl shadow-sm border border-gray-200 overflow-x-auto lg:overflow-x-visible whitespace-nowrap lg:whitespace-normal sticky top-20 h-fit" id="navTabs">
+      <button onclick="switchTab('modulo1')" id="tab-btn-modulo1" data-tab="modulo1" class="nav-btn bg-accent text-white flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold transition shadow-sm flex items-center gap-2">
+        <i class="fa-solid fa-brain"></i> <span>1. Eje Hipotálamo-Hipófisis</span>
+      </button>
+      <button onclick="switchTab('modulo2')" id="tab-btn-modulo2" data-tab="modulo2" class="nav-btn text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-xs sm:text-sm font-medium transition flex items-center gap-2">
+        <i class="fa-solid fa-child-reaching"></i> <span>2. GH & Prolactina</span>
+      </button>
+      <button onclick="switchTab('modulo3')" id="tab-btn-modulo3" data-tab="modulo3" class="nav-btn text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-xs sm:text-sm font-medium transition flex items-center gap-2">
+        <i class="fa-solid fa-bone"></i> <span>3. Tiroides & Ca²⁺ (PTH)</span>
+      </button>
+      <button onclick="switchTab('modulo4')" id="tab-btn-modulo4" data-tab="modulo4" class="nav-btn text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-xs sm:text-sm font-medium transition flex items-center gap-2">
+        <i class="fa-solid fa-heart-pulse"></i> <span>4. Eje Adrenal & Estrés</span>
+      </button>
+      <button onclick="switchTab('modulo5')" id="tab-btn-modulo5" data-tab="modulo5" class="nav-btn text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-xs sm:text-sm font-medium transition flex items-center gap-2">
+        <i class="fa-solid fa-venus-mars"></i> <span>5. Eje Gonadal (FSH/LH)</span>
+      </button>
+      <button onclick="switchTab('modulo6')" id="tab-btn-modulo6" data-tab="modulo6" class="nav-btn text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-xs sm:text-sm font-medium transition flex items-center gap-2">
+        <i class="fa-solid fa-droplet"></i> <span>6. ADH & Oxitocina</span>
+      </button>
+      <button onclick="switchTab('modulo7')" id="tab-btn-modulo7" data-tab="modulo7" class="nav-btn text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-xs sm:text-sm font-medium transition flex items-center gap-2 border-t lg:border-t border-gray-100">
+        <i class="fa-solid fa-sliders text-accent"></i> <span>7. Simulador de Asas</span>
+      </button>
+    </nav>
+
+    <!-- Área de Contenido Dinámico de los Módulos -->
+    <div class="flex-1 min-w-0 space-y-6">
+      <!-- MÓDULO 1: EJE HIPOTÁLAMO-HIPÓFISIS -->
+      <section id="content-modulo1" class="module-content space-y-6">
+      <!-- Banner Introductorio -->
+      <div class="bg-gradient-to-r from-sky-900 via-pituitary-900 to-slate-900 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="max-w-3xl">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-400/20 text-sky-200 border border-sky-400/30 mb-3">
+            Módulo 1 • Neuroanatomía & Vascularización Selectiva
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Eje Hipotálamo-Hipofisario: Conexión Neurovascular y Neuroendocrina</h2>
+          <p class="mt-2 text-sm text-sky-100/90 leading-relaxed">
+            El hipotálamo actúa como el centro integrador maestro del sistema nervioso central, traduciendo estímulos límbicos, autonómicos, osmolares y térmicos en respuestas moleculares precisas hacia la glándula hipófisis mediante dos vías biofísicas enteramente dispares: el <strong>sistema porta hipofisiario</strong> y el <strong>tracto axonal neurosecretor</strong>.
+          </p>
+        </div>
+      </div>
+
+      <!-- Grid: Visualizador Anatómico Interactivo + Explicación -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Columna Izquierda: Diagrama SVG Interactivo -->
+        <div class="lg:col-span-7 bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div>
+              <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-vascular-500 inline-block animate-ping"></span>
+                Esquema Funcional de la Silla Turca y Tallo Hipofisario
+              </h3>
+              <p class="text-xs text-slate-500">Haz clic en las estructuras para examinar el mecanismo neurovascular</p>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="setAnatomyView('porta')" class="px-2.5 py-1 text-xs rounded font-medium bg-vascular-50 text-vascular-700 border border-vascular-200 hover:bg-vascular-100 transition">Vía Porta</button>
+              <button onclick="setAnatomyView('axonal')" class="px-2.5 py-1 text-xs rounded font-medium bg-pituitary-50 text-pituitary-700 border border-pituitary-200 hover:bg-pituitary-100 transition">Vía Axonal</button>
+            </div>
+          </div>
+
+          <!-- Canvas / SVG Interactivo -->
+          <div class="relative w-full h-80 sm:h-96 my-4 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-center overflow-hidden">
+            <svg id="hypo-svg" viewBox="0 0 600 400" class="w-full h-full select-none cursor-pointer">
+              <!-- Fondo Sombra Silla Turca (Esfenoides) -->
+              <path d="M 120 370 Q 300 400 480 370 L 460 385 Q 300 415 140 385 Z" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2"/>
+              <text x="300" y="392" font-size="11" fill="#64748b" text-anchor="middle" font-weight="600">Hueso Esfenoides (Fosa Hipofisaria / Silla Turca)</text>
+
+              <!-- Hipotálamo Base Diencéfalo -->
+              <path id="svg-hypothalamus" onclick="selectStructure('hypothalamus')" d="M 160 50 C 220 30, 380 30, 440 50 C 470 110, 400 130, 340 140 C 320 143, 280 143, 260 140 C 200 130, 130 110, 160 50 Z" 
+                    fill="#fef3c7" stroke="#d97706" stroke-width="2.5" class="hover:opacity-90 transition"/>
+              <text x="300" y="80" font-size="14" fill="#92400e" font-weight="700" text-anchor="middle">HIPOTÁLAMO</text>
+              <text x="300" y="98" font-size="11" fill="#b45309" text-anchor="middle">Núcleos Paraventricular, Supraóptico, Arqueado</text>
+
+              <!-- Núcleos Somas Específicos -->
+              <circle cx="250" cy="100" r="12" fill="#fed7aa" stroke="#ea580c" stroke-width="1.5" />
+              <text x="250" y="104" font-size="9" font-weight="bold" fill="#9a3412" text-anchor="middle">PVN</text>
+
+              <circle cx="350" cy="100" r="12" fill="#bae6fd" stroke="#0284c7" stroke-width="1.5" />
+              <text x="350" y="104" font-size="9" font-weight="bold" fill="#0369a1" text-anchor="middle">SON</text>
+
+              <!-- Tallo Hipofisario (Infundíbulo) -->
+              <path d="M 280 140 L 260 210 L 340 210 L 320 140 Z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+
+              <!-- Vía 1: Sistema Porta Hipofisiario (Vascular) -->
+              <g id="svg-portal-group" onclick="selectStructure('porta')" class="cursor-pointer">
+                <!-- Plexo Primario Infundíbulo -->
+                <circle cx="300" cy="155" r="14" fill="#fda4af" fill-opacity="0.6" stroke="#e11d48" stroke-width="1.5" stroke-dasharray="3,2"/>
+                <!-- Vasos Portas Descendentes -->
+                <path d="M 288 165 C 282 185, 265 195, 255 220" stroke="#be123c" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+                <path d="M 300 168 C 298 185, 280 198, 275 220" stroke="#be123c" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <path d="M 312 165 C 306 185, 290 200, 285 220" stroke="#be123c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <circle cx="288" cy="180" r="3" fill="#ffe4e6" class="animate-ping"/>
+                <text x="210" y="185" font-size="11" fill="#be123c" font-weight="bold">Venas Portas</text>
+              </g>
+
+              <!-- Vía 2: Tracto Hipotálamo-Hipofisario (Axonal) -->
+              <g id="svg-axonal-group" onclick="selectStructure('neuro')" class="cursor-pointer">
+                <!-- Axones descendiendo hacia Neurohipófisis -->
+                <path d="M 350 112 C 345 150, 335 180, 360 240" stroke="#0284c7" stroke-width="3" stroke-dasharray="4,3" fill="none"/>
+                <path d="M 255 112 C 275 150, 320 180, 345 240" stroke="#ea580c" stroke-width="2.5" stroke-dasharray="4,3" fill="none"/>
+                <text x="390" y="185" font-size="11" fill="#0369a1" font-weight="bold">Tracto Axónico</text>
+              </g>
+
+              <!-- Adenohipófisis (Lóbulo Anterior) -->
+              <g id="svg-adeno" onclick="selectStructure('adeno')" class="cursor-pointer">
+                <path d="M 245 220 C 180 230, 175 320, 230 350 C 270 365, 305 340, 310 300 C 315 250, 300 220, 245 220 Z" 
+                      fill="#ffe4e6" stroke="#e11d48" stroke-width="2.5" class="hover:fill-rose-200 transition"/>
+                <!-- Plexo Capilar Secundario -->
+                <circle cx="240" cy="285" r="30" fill="#f43f5e" fill-opacity="0.15" stroke="#f43f5e" stroke-width="1" stroke-dasharray="2,2"/>
+                <text x="240" y="275" font-size="13" fill="#9f1239" font-weight="bold" text-anchor="middle">ADENOHIPÓFISIS</text>
+                <text x="240" y="293" font-size="10" fill="#be123c" font-weight="600" text-anchor="middle">Lóbulo Anterior</text>
+                <text x="240" y="310" font-size="9" fill="#e11d48" text-anchor="middle">(Células Epiteliales)</text>
+              </g>
+
+              <!-- Neurohipófisis (Lóbulo Posterior) -->
+              <g id="svg-neuro" onclick="selectStructure('neuro')" class="cursor-pointer">
+                <path d="M 310 220 C 305 250, 315 300, 310 300 C 315 340, 360 355, 395 330 C 425 295, 410 230, 355 220 Z" 
+                      fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5" class="hover:fill-sky-200 transition"/>
+                <circle cx="360" cy="285" r="24" fill="#38bdf8" fill-opacity="0.2" stroke="#0284c7" stroke-width="1" stroke-dasharray="2,2"/>
+                <text x="360" y="275" font-size="13" fill="#075985" font-weight="bold" text-anchor="middle">NEUROHIPÓFISIS</text>
+                <text x="360" y="293" font-size="10" fill="#0369a1" font-weight="600" text-anchor="middle">Lóbulo Posterior</text>
+                <text x="360" y="310" font-size="9" fill="#0284c7" text-anchor="middle">(Terminales Axónicos)</text>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Leyenda de colores -->
+          <div class="grid grid-cols-2 gap-3 text-xs bg-slate-50 p-3 rounded-xl border border-slate-200">
+            <div class="flex items-center gap-2">
+              <span class="w-3.5 h-3.5 rounded bg-rose-500 shrink-0"></span>
+              <span class="text-slate-700 font-medium"><strong>Adenohipófisis:</strong> Sistema Porta vascular capilar.</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-3.5 h-3.5 rounded bg-sky-500 shrink-0"></span>
+              <span class="text-slate-700 font-medium"><strong>Neurohipófisis:</strong> Axones de soma hipotalámico.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Tarjeta de Análisis Anatomo-Fisiológico Dinámico -->
+        <div class="lg:col-span-5 bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex flex-col">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <h3 class="text-base font-bold text-slate-900" id="anat-info-title">Detalle Neurofuncional Seleccionado</h3>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-sky-100 text-sky-800" id="anat-info-badge">Interactúa con el modelo</span>
+          </div>
+
+          <div id="anat-info-body" class="my-auto py-4 space-y-3.5 text-sm leading-relaxed text-slate-600">
+            <p>
+              Selecciona cualquier componente anatómico en el mapa vectorial de la izquierda (Hipotálamo, Venas Portas, Adenohipófisis o Neurohipófisis) para revisar la microarquitectura neurovascular crítica requerida para el examen de ingreso.
+            </p>
+            <div class="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs">
+              <strong>Clave Didáctica UCCuyo:</strong> En la adenohipófisis, las hormonas hipotalámicas <em>no</em> entran a la circulación sistémica general primero; entran directamente al <em>sistema porta hipofisiario</em>, asegurando que concentraciones micromolares sean suficientes para activar los receptores adenohipofisarios.
+            </div>
+          </div>
+
+          <!-- Cuadro de Síntesis Comparativa Rápida -->
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs grid grid-cols-2 gap-2 text-center">
+            <div class="p-2.5 rounded-lg bg-rose-50/70 border border-rose-100">
+              <span class="block font-bold text-vascular-700 mb-1">Origen Embriológico</span>
+              <span class="text-slate-600">Bolsa de Rathke (Ectodermo bucal / Epitelio glandular)</span>
+            </div>
+            <div class="p-2.5 rounded-lg bg-sky-50/70 border border-sky-100">
+              <span class="block font-bold text-pituitary-700 mb-1">Origen Embriológico</span>
+              <span class="text-slate-600">Infundíbulo diencefálico (Neuroectodermo verdadero)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel Interactivo Desplegable: Las 6 Hormonas de la Adenohipófisis -->
+      <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+              <span class="p-1 rounded-md bg-pituitary-100 text-pituitary-700">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+              </span>
+              Las Seis Hormonas de la Adenohipófisis y sus Estirpes Celulares
+            </h3>
+            <p class="text-xs text-slate-500">Haz clic en cada botón para explorar el linaje celular, la hormona reguladora hipotalámica y la diana periférica</p>
+          </div>
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200 self-start sm:self-auto">
+            Glándula Epitelial Verdadera
+          </span>
+        </div>
+
+        <!-- Botonera de Células -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 mb-5">
+          <button onclick="showAdenoCell('somato')" id="btn-cell-somato" class="cell-btn py-2.5 px-3 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition text-center active-cell bg-pituitary-50 border-pituitary-400 text-pituitary-700">
+            Somatotropas<br><span class="text-sm font-bold">$\text{GH}$</span>
+          </button>
+          <button onclick="showAdenoCell('tiro')" id="btn-cell-tiro" class="cell-btn py-2.5 px-3 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition text-center">
+            Tirotropas<br><span class="text-sm font-bold">$\text{TSH}$</span>
+          </button>
+          <button onclick="showAdenoCell('cortico')" id="btn-cell-cortico" class="cell-btn py-2.5 px-3 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition text-center">
+            Corticotropas<br><span class="text-sm font-bold">$\text{ACTH}$</span>
+          </button>
+          <button onclick="showAdenoCell('gonado_fsh')" id="btn-cell-gonado_fsh" class="cell-btn py-2.5 px-3 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition text-center">
+            Gonadotropas<br><span class="text-sm font-bold">$\text{FSH}$</span>
+          </button>
+          <button onclick="showAdenoCell('gonado_lh')" id="btn-cell-gonado_lh" class="cell-btn py-2.5 px-3 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition text-center">
+            Gonadotropas<br><span class="text-sm font-bold">$\text{LH}$</span>
+          </button>
+          <button onclick="showAdenoCell('lacto')" id="btn-cell-lacto" class="cell-btn py-2.5 px-3 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition text-center">
+            Lactotropas<br><span class="text-sm font-bold">$\text{PRL}$</span>
+          </button>
+        </div>
+
+        <!-- Ficha Dinámica Desplegable de la Hormona -->
+        <div id="adeno-detail-box" class="bg-gradient-to-br from-slate-50 to-white rounded-xl p-5 border border-slate-200 transition-all duration-300">
+          <!-- Inyectado por JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- MÓDULO 2: GH & PROLACTINA                  -->
+    <!-- ========================================== -->
+    <section id="content-modulo2" class="module-content hidden space-y-6">
+      <div class="bg-gradient-to-r from-emerald-900 via-teal-900 to-slate-900 rounded-2xl p-6 text-white shadow-lg">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-400/20 text-emerald-200 border border-emerald-400/30 mb-3">
+          Módulo 2 • Somatotropina & Secreción Lactogénica
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Hormona de Crecimiento ($\text{GH}$) y Prolactina ($\text{PRL}$)</h2>
+        <p class="mt-2 text-sm text-emerald-100/90 leading-relaxed max-w-3xl">
+          Hormonas polipeptídicas no tróficas directas secretadas por la adenohipófisis. Poseen una estricta dualidad entre efectos anabólicos tisulares mediados por somatomedinas ($\text{IGF-1}$) y efectos metabólicos antiinsulínicos directos, además del exclusivo control tónico inhibitorio mediado por dopamina.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Bloque Somatotropina GH -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div class="flex items-center gap-2">
+                <span class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs">GH</span>
+                <h3 class="font-bold text-slate-900 text-base">Somatotropina ($\text{GH}$)</h3>
+              </div>
+              <span class="text-xs px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-semibold">Células Somatotropas (~50%)</span>
+            </div>
+
+            <!-- Mecanismo Antagónico Hipotalámico -->
+            <div class="my-4 p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs space-y-2">
+              <span class="font-bold text-slate-700 block">Regulación Dual Antagónica Hipotalámica:</span>
+              <div class="grid grid-cols-2 gap-2">
+                <div class="p-2 rounded bg-white border border-emerald-200 text-emerald-900">
+                  <span class="font-bold block">$\text{GHRH}$ (+)</span>
+                  Estímulo pulsátil liberador hipotalámico (sueño profundo ondas lentas, ejercicio, hipoglucemia).
+                </div>
+                <div class="p-2 rounded bg-white border border-rose-200 text-rose-900">
+                  <span class="font-bold block">Somatostatina ($\text{SS}$) (-)</span>
+                  Inhibición tónica directa en receptor somatotrópico acoplado a proteína Gi.
+                </div>
+              </div>
+            </div>
+
+            <!-- Efectos Anabólicos vs Metabólicos Directos -->
+            <div class="space-y-3 text-xs leading-relaxed">
+              <div class="p-3 rounded-xl border border-blue-100 bg-blue-50/50">
+                <h4 class="font-bold text-blue-900 text-xs flex items-center gap-1.5 mb-1">
+                  <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                  Vía Indirecta Anabólica: Inducción Hepática de $\text{IGF-1}$ (Somatomedina C)
+                </h4>
+                <p class="text-slate-600">
+                  Estimula los condrocitos epifisarios (osteogénesis de huesos largos) e incrementa el ingreso de aminoácidos con síntesis neta de proteínas en masa muscular esquelética.
+                </p>
+              </div>
+
+              <div class="p-3 rounded-xl border border-amber-100 bg-amber-50/50">
+                <h4 class="font-bold text-amber-900 text-xs flex items-center gap-1.5 mb-1">
+                  <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                  Efecto Metabólico Directo: Lipólisis y Acción Diabetógena / Antiinsulínica
+                </h4>
+                <p class="text-slate-600">
+                  Estimula la lipasa sensible a hormonas (liberación de ácidos grasos como sustrato energético) y reduce la captación de glucosa periférica para <em>preservar carbohidratos exclusivamente para el encéfalo</em>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+            <span>Retroalimentación negativa:</span>
+            <span class="font-semibold text-slate-800">$\text{IGF-1}$ inhibe adenohipófisis e hipotálamo</span>
+          </div>
+        </div>
+
+        <!-- Bloque Prolactina PRL -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div class="flex items-center gap-2">
+                <span class="w-8 h-8 rounded-lg bg-pink-100 text-pink-700 flex items-center justify-center font-bold text-xs">PRL</span>
+                <h3 class="font-bold text-slate-900 text-base">Prolactina ($\text{PRL}$)</h3>
+              </div>
+              <span class="text-xs px-2 py-0.5 rounded bg-pink-50 text-pink-700 border border-pink-200 font-semibold">Células Lactotropas</span>
+            </div>
+
+            <!-- Fisiología Crítica: Dopamina Inhibitoria -->
+            <div class="my-4 p-3.5 bg-rose-50 rounded-xl border border-rose-200 text-xs text-rose-950">
+              <div class="flex items-center gap-2 font-bold mb-1 text-rose-800">
+                <svg class="w-4 h-4 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                Principio Fundamental de Examen: Control Inhibitorio Tónico
+              </div>
+              <p>
+                A diferencia de las demás hormonas adenohipofisarias, la prolactina está <strong>frenada tónicamente</strong> en reposo por la <strong>Dopamina</strong> hipotalámica (vía tuberoinfundibular). Si se secciona el tallo hipofisario, todas las hormonas adenohipofisarias caen bruscamente, <em>salvo la prolactina, que aumenta de forma hipersecretora</em>.
+              </p>
+            </div>
+
+            <!-- Comparación Crucial de Lactancia -->
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+              <span class="text-xs font-bold text-slate-800 uppercase tracking-wider block">Distinción Fisiológica Primordial:</span>
+              
+              <div class="flex items-start gap-3">
+                <div class="w-7 h-7 rounded-full bg-pink-200 text-pink-800 flex items-center justify-center font-bold text-xs shrink-0">1</div>
+                <div class="text-xs">
+                  <strong class="text-pink-900 block font-semibold">Producción y Síntesis Láctea = Prolactina ($\text{PRL}$)</strong>
+                  <p class="text-slate-600 mt-0.5">Actúa en los alvéolos mamarios estimulando la transcripción de caseína, lactoalbúmina y lactosa.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="w-7 h-7 rounded-full bg-sky-200 text-sky-800 flex items-center justify-center font-bold text-xs shrink-0">2</div>
+                <div class="text-xs">
+                  <strong class="text-sky-900 block font-semibold">Eyección y Reflejo de Descarga = Oxitocina</strong>
+                  <p class="text-slate-600 mt-0.5">Provoca la contracción mecánica de las células mioepiteliales perialveolares impulsando la leche hacia los conductos galactóforos.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+            <span>Estímulo neurogénico:</span>
+            <span class="font-semibold text-slate-800">Succión del pezón desinhibe la prolactina</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- MÓDULO 3: TIROIDES & CALCIO (PTH)          -->
+    <!-- ========================================== -->
+    <section id="content-modulo3" class="module-content hidden space-y-6">
+      <div class="bg-gradient-to-r from-amber-900 via-orange-950 to-slate-900 rounded-2xl p-6 text-white shadow-lg">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-400/20 text-amber-200 border border-amber-400/30 mb-3">
+          Módulo 3 • Metabolismo Basal y Homeostasis Mineral Vital
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Glándula Tiroides y Homeostasis del Calcio ($\text{PTH}$ vs. Calcitonina)</h2>
+        <p class="mt-2 text-sm text-amber-100/90 leading-relaxed max-w-3xl">
+          Anatomía funcional del folículo tiroideo (síntesis de tiroxina y triyodotironina) y la regulación milimétrica del catión divalente plasmático ($\text{Ca}^{2+}$) a cargo de las glándulas paratiroides mediante la hormona paratiroidea ($\text{PTH}$).
+        </p>
+      </div>
+
+      <!-- Corte Histológico Interactivo del Folículo Tiroideo -->
+      <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-100">
+          <div>
+            <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+              Microarquitectura del Folículo Tiroideo y Células Parafoliculares
+            </h3>
+            <p class="text-xs text-slate-500">Explora la unidad funcional secretora: luz folicular, tiroglobulina coloidal y células C</p>
+          </div>
+          <span class="text-xs px-2.5 py-1 bg-amber-50 text-amber-800 font-semibold rounded-md border border-amber-200">
+            Epitelio Cúbico Simple
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <!-- Dibujo SVG del folículo -->
+          <div class="lg:col-span-7 bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-center justify-center">
+            <svg viewBox="0 0 450 300" class="w-full max-h-72 select-none">
+              <!-- Célula Parafolicular C externa -->
+              <ellipse cx="90" cy="80" rx="35" ry="25" fill="#fef3c7" stroke="#d97706" stroke-width="2" class="cursor-pointer hover:opacity-80" onclick="showThyroidHist('c-cells')"/>
+              <text x="90" y="83" font-size="10" font-weight="bold" fill="#92400e" text-anchor="middle">Células C (Parafoliculares)</text>
+              <text x="90" y="96" font-size="8" fill="#b45309" text-anchor="middle">Calcitonina</text>
+
+              <!-- Anillo Folicular (Células foliculares cúbicas) -->
+              <circle cx="260" cy="150" r="110" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+              <!-- Coloide interno -->
+              <circle cx="260" cy="150" r="75" fill="#fde68a" stroke="#f59e0b" stroke-width="2" class="cursor-pointer hover:opacity-90" onclick="showThyroidHist('coloide')"/>
+              <text x="260" y="145" font-size="13" font-weight="bold" fill="#78350f" text-anchor="middle">COLOIDE FOLICULAR</text>
+              <text x="260" y="162" font-size="10" fill="#92400e" text-anchor="middle">Tiroglobulina Yodada</text>
+              <text x="260" y="177" font-size="9" fill="#b45309" text-anchor="middle">$\text{T}_3$ & $\text{T}_4$ almacenadas</text>
+
+              <!-- Células del anillo folicular clickeables -->
+              <g class="cursor-pointer hover:opacity-80" onclick="showThyroidHist('follicular')">
+                <circle cx="260" cy="50" r="14" fill="#fed7aa" stroke="#ea580c"/>
+                <circle cx="320" cy="65" r="14" fill="#fed7aa" stroke="#ea580c"/>
+                <circle cx="360" cy="110" r="14" fill="#fed7aa" stroke="#ea580c"/>
+                <circle cx="370" cy="165" r="14" fill="#fed7aa" stroke="#ea580c"/>
+                <circle cx="340" cy="220" r="14" fill="#fed7aa" stroke="#ea580c"/>
+                <circle cx="280" cy="255" r="14" fill="#fed7aa" stroke="#ea580c"/>
+                <circle cx="220" cy="250" r="14" fill="#fed7aa" stroke="#ea580c"/>
+                <circle cx="165" cy="210" r="14" fill="#fed7aa" stroke="#ea580c"/>
+                <circle cx="155" cy="150" r="14" fill="#fed7aa" stroke="#ea580c"/>
+                <circle cx="180" cy="90" r="14" fill="#fed7aa" stroke="#ea580c"/>
+                <text x="260" y="32" font-size="11" font-weight="bold" fill="#c2410c" text-anchor="middle">Células Foliculares (Cúbicas)</text>
+              </g>
+
+              <!-- Indicador de yodación activa -->
+              <path d="M 120 200 L 170 180" stroke="#0284c7" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="3,2"/>
+              <text x="100" y="225" font-size="9" fill="#0284c7" font-weight="bold">Simportador NIS ($\text{Na}^+/\text{I}^-$)</text>
+            </svg>
+          </div>
+
+          <!-- Información Histológica Dinámica -->
+          <div class="lg:col-span-5 bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <h4 id="thyroid-hist-title" class="font-bold text-slate-900 text-sm mb-1">Células Foliculares Tiroideas</h4>
+            <div id="thyroid-hist-desc" class="text-xs text-slate-600 space-y-2 leading-relaxed">
+              <p>Sintetizan la glicoproteína tiroglobulina hacia el interior del coloide y captan activamente el yoduro mediante el cotransportador $\text{NIS}$.</p>
+              <p><strong>$\text{T}_4$ (Tiroxina):</strong> Representa el $90\%$ de la secreción tiroidea; actúa como prohormona circulante estable con mayor vida media (6-7 días).</p>
+              <p><strong>$\text{T}_3$ (Triyodotironina):</strong> Es 4 a 5 veces más potente biológicamente; la mayor parte se origina por desyodación periférica de $\text{T}_4$ mediada por desyodasas hepáticas y renales.</p>
+            </div>
+            <div class="mt-3 p-2.5 rounded bg-white border border-slate-200 text-xs">
+              <strong class="text-amber-700">Efecto Calorigénico:</strong> Inducen la transcripción de bombas $\text{Na}^+/\text{K}^+$-ATPasa en casi todos los tejidos, aumentando el gasto calórico basal y la temperatura corporal.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparativa Reguladora del Calcio: Parathormona vs Calcitonina -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Parathormona PTH (Regulador Vital) -->
+        <div class="bg-white rounded-2xl p-6 border-2 border-emerald-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-3 border-b border-emerald-100">
+              <h3 class="font-bold text-emerald-950 text-base flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                Parathormona ($\text{PTH}$) - Hipercalcemiante Vital
+              </h3>
+              <span class="text-xs px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold">Esencial para la Vida</span>
+            </div>
+            <p class="text-xs text-slate-600 mt-2">
+              Secretada por las <strong>células principales</strong> de las 4 glándulas paratiroides posteriores ante descensos del calcio iónico detectados por el sensor $\text{CaSR}$.
+            </p>
+
+            <div class="mt-4 space-y-2.5 text-xs">
+              <div class="p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200">
+                <strong class="text-emerald-900 block font-semibold">1. Hueso (Acción Rápida y Tardía):</strong>
+                <span class="text-slate-700">Induce la expresión de $\text{RANKL}$ en osteoblastos para activar a los <em>osteoclastos</em>, produciendo resorción ósea y vertido de $\text{Ca}^{2+}$ a la sangre.</span>
+              </div>
+              <div class="p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200">
+                <strong class="text-emerald-900 block font-semibold">2. Riñón (Reabsorción & Eliminación):</strong>
+                <span class="text-slate-700">Aumenta la reabsorción tubular de $\text{Ca}^{2+}$, produce <em>fosfaturia</em> ($\text{HPO}_4^{2-}$ para evitar la precipitación de sales insolubles) y activa la enzima <strong>$1\alpha$-hidroxilasa</strong>.</span>
+              </div>
+              <div class="p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200">
+                <strong class="text-emerald-900 block font-semibold">3. Intestino (Acción Indirecta por Vitamina D):</strong>
+                <span class="text-slate-700">El <strong>Calcitriol</strong> ($1,25\text{-(OH)}_2\text{D}_3$) activado promueve la síntesis de transportadores $\text{calbindina}$ para absorber $\text{Ca}^{2+}$ de la dieta.</span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 pt-2 text-xs text-emerald-800 font-semibold text-right">
+            Objetivo: Elevar $[\text{Ca}^{2+}]$ extracelular a rango fisiológico ($8.5 - 10.5\text{ mg/dL}$)
+          </div>
+        </div>
+
+        <!-- Calcitonina (Regulador Accesorio) -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+              <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-sky-400"></span>
+                Calcitonina - Hipocalcemiante Accesoria
+              </h3>
+              <span class="text-xs px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">Relevancia Menor en Adultos</span>
+            </div>
+            <p class="text-xs text-slate-600 mt-2">
+              Secretada por las <strong>células C (parafoliculares)</strong> de la tiroides en respuesta directa a la <em>hipercalcemia aguda</em>.
+            </p>
+
+            <div class="mt-4 space-y-2.5 text-xs">
+              <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                <strong class="text-slate-800 block font-semibold">Acción Osteoclástica:</strong>
+                <span class="text-slate-600">Se une directamente a receptores en los osteoclastos inactivando su borde en cepillo, frenando inmediatamente la resorción ósea.</span>
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                <strong class="text-slate-800 block font-semibold">Impacto Fisiológico en el Ser Humano Adulto:</strong>
+                <span class="text-slate-600">No es indispensable en humanos adultos (pacientes tiroidectomizados sin calcitonina mantienen homeostasis normal del calcio si se preserva la $\text{PTH}$). Actúa como amortiguador postprandial transitorio.</span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 pt-2 text-xs text-slate-500 font-medium text-right">
+            Objetivo: Frenar transitoriamente la salida de calcio del hueso
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- MÓDULO 4: EJE ADRENAL Y ESTRÉS             -->
+    <!-- ========================================== -->
+    <section id="content-modulo4" class="module-content hidden space-y-6">
+      <div class="bg-gradient-to-r from-teal-900 via-adrenal-900 to-slate-900 rounded-2xl p-6 text-white shadow-lg">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-400/20 text-emerald-200 border border-emerald-400/30 mb-3">
+          Módulo 4 • Adaptación Somática al Estrés & Glucocorticoides
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Eje Hipotálamo-Hipófiso-Corticorrenal ($\text{CRH} \to \text{ACTH} \to \text{Cortisol}$)</h2>
+        <p class="mt-2 text-sm text-teal-100/90 leading-relaxed max-w-3xl">
+          El circuito primario de preservación homeostática frente al estrés físico, psíquico, hipoglucémico y quirúrgico. La corteza suprarrenal modula la provisión continua de combustibles metabólicos y previene respuestas inflamatorias deletéreas.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Diagrama Funcional del Eje -->
+        <div class="lg:col-span-6 bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+          <h3 class="font-bold text-slate-900 text-base flex items-center justify-between pb-3 border-b border-slate-100">
+            <span>Cascada de Señalización en Tres Niveles</span>
+            <span class="text-xs font-normal text-adrenal-700 bg-adrenal-50 px-2 py-0.5 rounded border border-adrenal-200">Asa Larga Negativa</span>
+          </h3>
+
+          <div class="space-y-3 text-xs">
+            <!-- Nivel 1 -->
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 relative">
+              <span class="font-bold text-slate-800 text-sm block">1. Hipotálamo (Núcleo Paraventricular)</span>
+              <p class="text-slate-600 mt-1">
+                Frente a estrés, ritmos circadianos matinales o citocinas ($\text{IL-1, IL-6, TNF-}\alpha$), libera <strong>$\text{CRH}$</strong> (Hormona Liberadora de Corticotropina) hacia el plexo primario del sistema porta.
+              </p>
+              <div class="mt-2 text-vascular-600 font-semibold flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+                $\text{CRH}$ estimula receptores $\text{CRHR}_1$ en células corticotropas
+              </div>
+            </div>
+
+            <!-- Nivel 2 -->
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 relative">
+              <span class="font-bold text-slate-800 text-sm block">2. Adenohipófisis (Células Corticotropas)</span>
+              <p class="text-slate-600 mt-1">
+                Escinde la molécula precursora $\text{POMC}$ (proopiomelanocortina) y vierte a la circulación general la <strong>$\text{ACTH}$</strong> (Adrenocorticotropina).
+              </p>
+              <div class="mt-2 text-adrenal-700 font-semibold flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+                $\text{ACTH}$ viaja por sangre hasta la corteza suprarrenal
+              </div>
+            </div>
+
+            <!-- Nivel 3 -->
+            <div class="p-3.5 rounded-xl bg-adrenal-50 border border-adrenal-200 relative">
+              <span class="font-bold text-adrenal-950 text-sm block">3. Corteza Suprarrenal (Zona Fasciculada)</span>
+              <p class="text-slate-700 mt-1">
+                Los receptores $\text{MC2R}$ acoplados a $\text{Gs}$ activan la síntesis de novo de <strong>Cortisol</strong> a partir del colesterol mediante enzimas de citocromo P450.
+              </p>
+              <div class="mt-2 text-rose-700 font-bold flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+                Retroalimentación Negativa: El cortisol frena tanto $\text{CRH}$ como $\text{ACTH}$
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Efectos Sistémicos y Metabólicos del Cortisol -->
+        <div class="lg:col-span-6 bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <h3 class="font-bold text-slate-900 text-base pb-3 border-b border-slate-100 flex items-center justify-between">
+              <span>Acciones Sistémicas del Cortisol</span>
+              <span class="text-xs px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-mono">Glucocorticoide Mayor</span>
+            </h3>
+
+            <div class="mt-4 space-y-3 text-xs leading-relaxed">
+              <div class="p-3 rounded-xl bg-amber-50 border border-amber-200">
+                <strong class="text-amber-900 block font-semibold mb-0.5">Gluconeogénesis Hepática & Diabetogénesis:</strong>
+                <span class="text-slate-700">Estimula enzimas hepáticas clave (como $\text{PEPCK}$) para sintetizar glucosa a partir de aminoácidos provenientes del catabolismo muscular proteico y glicerol de la lipólisis. Disminuye la captación periférica de glucosa.</span>
+              </div>
+
+              <div class="p-3 rounded-xl bg-blue-50 border border-blue-200">
+                <strong class="text-blue-900 block font-semibold mb-0.5">Efecto Antiinflamatorio e Inmunosupresor:</strong>
+                <span class="text-slate-700">Induce la síntesis de <strong>anexina-A1 (lipocortina-1)</strong>, bloqueando la fosfolipasa $\text{A}_2$ e inhibiendo la cascada del ácido araquidónico (prostaglandinas y leucotrienos). Inhibe la activación del factor transcripcional $\text{NF-}\kappa\text{B}$.</span>
+              </div>
+
+              <div class="p-3 rounded-xl bg-rose-50 border border-rose-200">
+                <strong class="text-rose-900 block font-semibold mb-0.5">Mantenimiento Hemodinámico Cardiovascular:</strong>
+                <span class="text-slate-700">Ejerce un efecto permisivo crucial sobre los receptores adrenérgicos vasculares $\alpha_1$, permitiendo el tono arteriolar adecuado frente a catecolaminas. Sin cortisol, sobreviene shock circulatorio.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 p-3 rounded-xl bg-slate-100 border border-slate-200 text-xs text-slate-600">
+            <strong>Ritmo Circadiano:</strong> Su concentración máxima fisiológica ocurre a primera hora de la mañana (06:00 - 08:00 hs) y desciende a valores mínimos a medianoche.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- MÓDULO 5: EJE GONADAL                      -->
+    <!-- ========================================== -->
+    <section id="content-modulo5" class="module-content hidden space-y-6">
+      <div class="bg-gradient-to-r from-purple-900 via-gonadal-700 to-slate-900 rounded-2xl p-6 text-white shadow-lg">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-400/20 text-purple-200 border border-purple-400/30 mb-3">
+          Módulo 5 • Gametogénesis & Esteroidogénesis Sexual
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Eje Gonadal: Regulación de la Reproducción Femenina y Masculina</h2>
+        <p class="mt-2 text-sm text-purple-100/90 leading-relaxed max-w-3xl">
+          El pulso de $\text{GnRH}$ hipotalámico coordina la liberación adenohipofisaria de gonadotropinas ($\text{FSH}$ y $\text{LH}$), las cuales actúan en compartimentos celulares testiculares y ováricos estrictamente homólogos.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Fisiología Femenina -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-3 border-b border-purple-100">
+              <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-purple-500"></span>
+                Eje Femenino (Ovario & Ciclo Sexual)
+              </h3>
+              <span class="text-xs px-2 py-0.5 rounded bg-purple-50 text-purple-700 font-semibold border border-purple-200">Células Granulosa & Teca</span>
+            </div>
+
+            <div class="mt-4 space-y-3.5 text-xs">
+              <div class="p-3.5 rounded-xl bg-purple-50/60 border border-purple-200">
+                <div class="flex items-center justify-between font-bold text-purple-900 mb-1">
+                  <span>$\text{FSH}$ (Hormona Foliculoestimulante):</span>
+                  <span class="text-xs text-purple-700">Reclutamiento Folicular</span>
+                </div>
+                <p class="text-slate-600">
+                  Estimula la proliferación de las células de la granulosa ovárica e induce la enzima <strong>aromatasa</strong>, transformando los andrógenos de la teca en <strong>Estrógenos (Estradiol / $\text{E}_2$)</strong>.
+                </p>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-purple-50/60 border border-purple-200">
+                <div class="flex items-center justify-between font-bold text-purple-900 mb-1">
+                  <span>$\text{LH}$ (Hormona Luteinizante):</span>
+                  <span class="text-xs text-purple-700">Pico Ovulatorio</span>
+                </div>
+                <p class="text-slate-600">
+                  Actúa sobre la teca interna para producir andrógenos precursores. Su <strong>pico preovulatorio</strong> (desencadenado por retroalimentación positiva estrogénica alta) gatilla la expulsión del ovocito secundario y convierte el folículo colapsado en <strong>Cuerpo Lúteo</strong> secretor de <strong>Progesterona</strong>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 p-3 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-600">
+            <strong>Retroalimentación:</strong> La progesterona y los estrógenos ejercen retroalimentación negativa general; los folículos también secretan <em>inhibina B</em> que frena selectivamente a la $\text{FSH}$.
+          </div>
+        </div>
+
+        <!-- Fisiología Masculina -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-3 border-b border-blue-100">
+              <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+                Eje Masculino (Testículo & Espermatogénesis)
+              </h3>
+              <span class="text-xs px-2 py-0.5 rounded bg-blue-50 text-blue-700 font-semibold border border-blue-200">Sertoli & Leydig</span>
+            </div>
+
+            <div class="mt-4 space-y-3.5 text-xs">
+              <div class="p-3.5 rounded-xl bg-blue-50/60 border border-blue-200">
+                <div class="flex items-center justify-between font-bold text-blue-900 mb-1">
+                  <span>$\text{FSH}$ $\to$ Células de Sertoli (Sostén Tubular):</span>
+                  <span class="text-xs text-blue-700">Túbulos Seminíferos</span>
+                </div>
+                <p class="text-slate-600">
+                  Nutren y coordinan la espermatogénesis; forman la <em>barrera hematotesticular</em> y sintetizan la proteína fijadora de andrógenos ($\text{ABP}$) para concentrar testosterona intratubular, además de liberar <strong>Inhibina B</strong> que frena a la $\text{FSH}$.
+                </p>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-blue-50/60 border border-blue-200">
+                <div class="flex items-center justify-between font-bold text-blue-900 mb-1">
+                  <span>$\text{LH}$ $\to$ Células de Leydig (Intersticio):</span>
+                  <span class="text-xs text-blue-700">Esteroidogénesis</span>
+                </div>
+                <p class="text-slate-600">
+                  Estimula la captación de colesterol y la biosíntesis de <strong>Testosterona</strong>. La testosterona circulante ejerce retroalimentación negativa clásica sobre hipotálamo ($\text{GnRH}$) e hipófisis ($\text{LH}$).
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mnemotecnia Didáctica UCCuyo -->
+          <div class="mt-4 p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-xs text-emerald-900">
+            <strong>Regla Mnemotécnica Médica:</strong> 
+            <span class="font-semibold block mt-0.5"><strong>L</strong>H estimula <strong>L</strong>eydig (Testosterona). <strong>S</strong>ertoli es estimulada por F<strong>S</strong>H y produce e<strong>S</strong>perma.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- MÓDULO 6: NEUROHIPÓFISIS                   -->
+    <!-- ========================================== -->
+    <section id="content-modulo6" class="module-content hidden space-y-6">
+      <div class="bg-gradient-to-r from-sky-900 via-blue-950 to-slate-900 rounded-2xl p-6 text-white shadow-lg">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-400/20 text-sky-200 border border-sky-400/30 mb-3">
+          Módulo 6 • Neurosecreción Posterior & Amplificación Fisiológica
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Neurohipófisis: Balance Hídrico ($\text{ADH}$) y Retroalimentación Positiva (Oxitocina)</h2>
+        <p class="mt-2 text-sm text-sky-100/90 leading-relaxed max-w-3xl">
+          Almacenamiento axonal terminal de nonapéptidos sintetizados en el hipotálamo anterior. Explora el ajuste osmótico por vasopresina y la cascada biomecánica del reflejo de Ferguson.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Hormona Antidiurética ADH -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+              <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-sky-600"></span>
+                $\text{ADH}$ / Arginina Vasopresina ($\text{AVP}$)
+              </h3>
+              <span class="text-xs px-2 py-0.5 rounded bg-sky-50 text-sky-700 font-semibold border border-sky-200">Núcleo Supraóptico Predominante</span>
+            </div>
+
+            <div class="mt-4 space-y-3 text-xs leading-relaxed">
+              <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                <strong class="text-slate-900 block font-semibold mb-1">Gatillo Sensorial Osmolar vs. Hemodinámico:</strong>
+                <p class="text-slate-600">
+                  Los <strong>osmorreceptores hipotalámicos</strong> detectan variaciones de tan sólo un $1\%$ en la osmolaridad plasmática (umbral: $\sim 280\text{ mOsm/kg}$). En casos graves de hipovolemia ($>10\%$), barorreceptores arteriales provocan una liberación masiva de $\text{ADH}$.
+                </p>
+              </div>
+
+              <div class="p-3 bg-sky-50 rounded-xl border border-sky-200 text-sky-950">
+                <strong class="block font-semibold mb-1 text-sky-900">Mecanismo Renal Molecular (Acuaporinas):</strong>
+                <p>
+                  La $\text{ADH}$ se une a receptores <strong>$\text{V}_2$</strong> en la membrana basolateral de las células principales del <strong>túbulo colector renal</strong> $\to$ activa adenilato ciclasa y $\text{AMPc} \to$ promueve la exocitosis y translocación de vesículas con <strong>Acuaporina-2 ($\text{AQP-2}$)</strong> a la membrana apical luminal.
+                </p>
+                <div class="mt-2 text-xs font-semibold text-sky-800">
+                  Resultado: Reabsorción facultativa de agua libre pura $\to$ Orina concentrada e hiperosmolar.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500">
+            <span>En altas dosis:</span> Activa receptores $\text{V}_1$ vasculares produciendo vasoconstricción arteriolar periférica.
+          </div>
+        </div>
+
+        <!-- Oxitocina y Retroalimentación Positiva -->
+        <div class="bg-white rounded-2xl p-6 border-2 border-rose-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-3 border-b border-rose-100">
+              <h3 class="font-bold text-rose-950 text-base flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-rose-600"></span>
+                Oxitocina: Bucles de Retroalimentación Positiva
+              </h3>
+              <span class="text-xs px-2 py-0.5 rounded bg-rose-100 text-rose-800 font-bold">Amplificación Explosiva</span>
+            </div>
+
+            <p class="text-xs text-slate-600 mt-2">
+              Sintetizada prioritariamente en el <strong>núcleo paraventricular ($\text{PVN}$)</strong>. A diferencia de las asas negativas que restauran el equilibrio homeostático, la retroalimentación positiva acelera un evento fisiológico hasta un clímax terminal.
+            </p>
+
+            <div class="mt-4 space-y-3 text-xs">
+              <!-- Ferguson -->
+              <div class="p-3 bg-rose-50/70 rounded-xl border border-rose-200">
+                <strong class="text-rose-900 font-bold block mb-1">1. Reflejo de Ferguson (Mecánica del Parto):</strong>
+                <ol class="list-decimal list-inside space-y-1 text-slate-700">
+                  <li>La cabeza fetal desciende y distiende los mecanorreceptores del cuello uterino.</li>
+                  <li>Las señales aferentes viajan por la médula espinal estimulando el hipotálamo.</li>
+                  <li>La neurohipófisis secreta mayores bolos de oxitocina a la circulación.</li>
+                  <li>La oxitocina incrementa la fuerza y frecuencia de contracción miometrial.</li>
+                  <li>Más contracción $\to$ más distensión cervical $\to$ el ciclo se autoalimenta exponencialmente hasta el nacimiento.</li>
+                </ol>
+              </div>
+
+              <!-- Eyección -->
+              <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                <strong class="text-slate-900 font-bold block mb-1">2. Reflejo Neuroendocrino de Eyección Láctea:</strong>
+                <p class="text-slate-600">
+                  La succión táctil del pezón genera potenciales de acción hacia el hipotálamo $\to$ liberación pulsátil de oxitocina $\to$ contracción inmediata de las células mioepiteliales de la glándula mamaria con eyección de la leche almacenada.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-rose-100 text-xs text-rose-800 font-semibold text-right">
+            El bucle sólo se extingue tras la remoción física del estímulo mecánico
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- MÓDULO 7: SIMULADOR DE ASAS & CASOS CLÍNICOS -->
+    <!-- ========================================== -->
+    <section id="content-modulo7" class="module-content hidden space-y-6">
+      <div class="bg-gradient-to-r from-slate-900 via-pituitary-900 to-vascular-900 rounded-2xl p-6 text-white shadow-lg">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white/20 text-sky-100 border border-white/20 mb-3">
+          Módulo 7 • Laboratorio Fisiológico y Dinámica Cuantitativa
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Consola de Bucles Dinámicos y Razonamiento Clínico</h2>
+        <p class="mt-2 text-sm text-sky-100/90 leading-relaxed max-w-3xl">
+          Modula los niveles hormonales en tiempo real para observar la compensación del sistema neuroendocrino en asas de retroalimentación negativa, o simula el bucle exponencial positivo del trabajo de parto y resuelve desafíos diagnósticos de admisión médica.
+        </p>
+      </div>
+
+      <!-- Selector de Modo de Simulación -->
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-white p-3 rounded-2xl border border-slate-200 shadow-sm">
+        <div class="flex gap-2">
+          <button onclick="setSimMode('tiroides')" id="sim-btn-tiroides" class="sim-selector-btn px-3.5 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-white shadow-sm transition">
+            Eje Tiroideo
+          </button>
+          <button onclick="setSimMode('adrenal')" id="sim-btn-adrenal" class="sim-selector-btn px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+            Eje Adrenal
+          </button>
+          <button onclick="setSimMode('calcio')" id="sim-btn-calcio" class="sim-selector-btn px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+            Eje del Calcio
+          </button>
+          <button onclick="setSimMode('parto')" id="sim-btn-parto" class="sim-selector-btn px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+            Parto (Asa Positiva)
+          </button>
+        </div>
+
+        <button onclick="switchTab('modulo7_casos')" class="px-3 py-1.5 rounded-lg text-xs font-bold text-vascular-700 bg-vascular-50 border border-vascular-200 hover:bg-vascular-100 transition flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          Ir al Taller de Casos Clínicos
+        </button>
+      </div>
+
+      <!-- Área de la Consola Interactiva -->
+      <div id="sim-container" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+        <!-- Renderizado dinámicamente por la función updateSimulatorUI() -->
+      </div>
+    </section>
+
+    </div>
+  </main>
+
+  <!-- Modal / Toast de Retroalimentación del Simulador -->
+  <div id="notification-box" class="fixed bottom-5 right-5 max-w-sm bg-white rounded-xl shadow-xl border border-slate-200 p-4 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none z-50">
+    <div class="flex items-start gap-3">
+      <div id="notif-icon" class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">✓</div>
+      <div>
+        <h4 id="notif-title" class="text-xs font-bold text-slate-900">Notificación</h4>
+        <p id="notif-desc" class="text-xs text-slate-600 mt-0.5">Mensaje del sistema fisiológico.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Institucional Estándar Vesalio -->
+  <footer class="bg-white border-t border-gray-200 py-3 text-center text-xs text-gray-500 font-medium">
+    Desarrollado por vesalio - Todos los derechos reservados
+  </footer>
+
+  <!-- ==================== MODAL: VADEMÉCUM ENDOCRINOLÓGICO ==================== -->
+  <div id="modal-formulas" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center hidden p-4">
+    <div class="bg-white max-w-4xl w-full rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div class="bg-accent p-4 text-white flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-book-bookmark text-xl"></i>
+          <h3 class="font-bold text-base">Vademécum Bioquímico & Clínico: Neuroendocrinología y Regulación Hormonal</h3>
+        </div>
+        <button onclick="closeFormulasModal()" class="text-white hover:text-gray-200 transition">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      
+      <div class="p-6 overflow-y-auto space-y-6 text-xs md:text-sm text-gray-700 custom-scrollbar leading-relaxed">
+        
+        <!-- 1. Clasificación Bioquímica y Cinética de Señalización -->
+        <div>
+          <h4 class="font-bold text-accent text-sm mb-2 flex items-center gap-2">
+            <i class="fa-solid fa-flask-vial"></i> 1. Clasificación Bioquímica, Vida Media y Receptores Moleculares
+          </h4>
+          <div class="overflow-x-auto rounded-xl border border-gray-200">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead class="bg-slate-100 text-slate-700 font-bold border-b border-gray-200">
+                <tr>
+                  <th class="p-2.5">Hormona / Factor</th>
+                  <th class="p-2.5">Naturaleza Química</th>
+                  <th class="p-2.5">Vida Media (\(t_{1/2}\))</th>
+                  <th class="p-2.5">Tipo de Receptor & Mecanismo</th>
+                  <th class="p-2.5">Valores Referencia Clave</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100">
+                <tr class="hover:bg-slate-50">
+                  <td class="p-2.5 font-bold text-slate-900">\(\text{TRH}\) / \(\text{TSH}\)</td>
+                  <td class="p-2.5">Tripéptido / Glicoproteína</td>
+                  <td class="p-2.5">\(< 5\text{ min}\) / \(\sim 60\text{ min}\)</td>
+                  <td class="p-2.5 font-mono text-[11px]">\(\text{GPCR-G}_q\) / \(\text{GPCR-G}_s\) (\(\text{AMPc}\))</td>
+                  <td class="p-2.5 font-mono text-emerald-800 font-semibold">\(\text{TSH}: 0.4 - 4.5\,\mu\text{UI/mL}\)</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-2.5 font-bold text-slate-900">\(\text{T}_4\) Libre / \(\text{T}_3\) Libre</td>
+                  <td class="p-2.5">Tironinas Yodadas (Amina lipofílica)</td>
+                  <td class="p-2.5">\(7\text{ días}\) / \(1\text{ día}\)</td>
+                  <td class="p-2.5 font-mono text-[11px]">Receptores Nucleares (\(\text{TR}\alpha, \text{TR}\beta\)) + \(\text{ADN}\)</td>
+                  <td class="p-2.5 font-mono text-emerald-800 font-semibold">\(\text{T}_4\text{L}: 0.8 - 1.8\,\text{ng/dL}\)</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-2.5 font-bold text-slate-900">\(\text{CRH}\) / \(\text{ACTH}\)</td>
+                  <td class="p-2.5">Polipéptidos</td>
+                  <td class="p-2.5">\(\sim 10\text{ min}\)</td>
+                  <td class="p-2.5 font-mono text-[11px]">\(\text{GPCR-G}_s \longrightarrow \text{AMPc} \to \text{PKA}\)</td>
+                  <td class="p-2.5 font-mono text-emerald-800 font-semibold">\(\text{ACTH (8 AM)}: 10 - 60\,\text{pg/mL}\)</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-2.5 font-bold text-slate-900">Cortisol</td>
+                  <td class="p-2.5">Esteroide Glucocorticoide</td>
+                  <td class="p-2.5">\(60 - 90\text{ min}\)</td>
+                  <td class="p-2.5 font-mono text-[11px]">Receptor Citosólico (\(\text{GR}\)) \(\to\) Translocación Nuclear</td>
+                  <td class="p-2.5 font-mono text-emerald-800 font-semibold">\(\text{Cortisol (8 AM)}: 5 - 25\,\mu\text{g/dL}\)</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-2.5 font-bold text-slate-900">\(\text{GnRH}\) / \(\text{FSH}\) / \(\text{LH}\)</td>
+                  <td class="p-2.5">Decapéptido / Glicoproteínas</td>
+                  <td class="p-2.5">\(2 - 4\text{ min}\) / \(2 - 3\text{ h}\) / \(20\text{ min}\)</td>
+                  <td class="p-2.5 font-mono text-[11px]">\(\text{GPCR-G}_q\) (\(\text{IP}_3/\text{Ca}^{2+}\)) / \(\text{GPCR-G}_s\) (\(\text{AMPc}\))</td>
+                  <td class="p-2.5 font-mono text-emerald-800 font-semibold">Pico ovulatorio \(\text{LH} > 20\,\text{mUI/mL}\)</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-2.5 font-bold text-slate-900">\(\text{GH}\) / \(\text{IGF-1}\)</td>
+                  <td class="p-2.5">Polipéptido / Factor peptídico</td>
+                  <td class="p-2.5">\(20\text{ min}\) / \(12 - 15\text{ h}\) (con \(\text{IGFBP-3}\))</td>
+                  <td class="p-2.5 font-mono text-[11px]">Receptor Tirosina Quinasa asociada (\(\text{JAK2/STAT}\))</td>
+                  <td class="p-2.5 font-mono text-emerald-800 font-semibold">\(\text{IGF-1}\): Variable según edad puberal</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-2.5 font-bold text-slate-900">Prolactina (\(\text{PRL}\))</td>
+                  <td class="p-2.5">Polipéptido monomérico</td>
+                  <td class="p-2.5">\(20 - 30\text{ min}\)</td>
+                  <td class="p-2.5 font-mono text-[11px]">Receptor de Citoquinas (\(\text{JAK/STAT}\))</td>
+                  <td class="p-2.5 font-mono text-emerald-800 font-semibold">Basal no embarazada: \(< 25\,\text{ng/mL}\)</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-2.5 font-bold text-slate-900">\(\text{PTH}\) / Calcitonina</td>
+                  <td class="p-2.5">Polipéptidos</td>
+                  <td class="p-2.5">\(< 5\text{ min}\) / \(10\text{ min}\)</td>
+                  <td class="p-2.5 font-mono text-[11px]">\(\text{GPCR-G}_s + \text{G}_q\)</td>
+                  <td class="p-2.5 font-mono text-emerald-800 font-semibold">\(\text{Ca}^{2+}\text{ iónico}: 1.15 - 1.33\,\text{mmol/L}\)</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-2.5 font-bold text-slate-900">\(\text{ADH}\) / Oxitocina</td>
+                  <td class="p-2.5">Nonapéptidos con puente disulfuro</td>
+                  <td class="p-2.5">\(5 - 15\text{ min}\) / \(3 - 5\text{ min}\)</td>
+                  <td class="p-2.5 font-mono text-[11px]">\(\text{V}_2\) (\(\text{G}_s/\text{AMPc}\)), \(\text{V}_1/\text{OTR}\) (\(\text{G}_q/\text{IP}_3\))</td>
+                  <td class="p-2.5 font-mono text-emerald-800 font-semibold">Osmolaridad: \(285 - 295\,\text{mOsm/kg}\)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 2. Dinámica Biofísica de Retroalimentación -->
+        <div>
+          <h4 class="font-bold text-accent text-sm mb-2 flex items-center gap-2">
+            <i class="fa-solid fa-rotate"></i> 2. Dinámica de Retroalimentación (Asas Fisiopatológicas)
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1.5">
+              <span class="font-bold text-slate-900 block">• Asa Larga Negativa Clásica:</span>
+              <p class="text-slate-600">
+                La hormona periférica final ejerce un frenado alostérico y transcripcional simultáneo sobre la adenohipófisis y el hipotálamo (ej. \(\text{T}_3/\text{T}_4\) inhiben \(\text{TSH}\) y \(\text{TRH}\); el Cortisol inhibe \(\text{ACTH}\) y \(\text{CRH}\)).
+              </p>
+              <div class="p-2 bg-white rounded border border-slate-200 font-mono text-[11px] text-center">
+                $$\uparrow [\text{Periférica}] \implies \downarrow [\text{Trófica Hipofisaria}] \land \downarrow [\text{Liberadora Hipotalámica}]$$
+              </div>
+            </div>
+
+            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1.5">
+              <span class="font-bold text-slate-900 block">• Asa Corta y Ultracorta:</span>
+              <p class="text-slate-600">
+                • <strong>Asa Corta:</strong> La hormona trófica adenohipofisaria retroinhibe directamente al hipotálamo (ej. \(\text{ACTH}\) inhibe \(\text{CRH}\); \(\text{GH}\) inhibe \(\text{GHRH}\)).<br>
+                • <strong>Asa Ultracorta:</strong> La neurohormona liberada en la eminencia media inhibe su propia síntesis autocrina en el soma neuronal.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Claves Diagnósticas para el Ingreso a Medicina -->
+        <div>
+          <h4 class="font-bold text-accent text-sm mb-2 flex items-center gap-2">
+            <i class="fa-solid fa-stethoscope"></i> 3. Diagnóstico Diferencial de Patología Primaria vs. Secundaria
+          </h4>
+          <div class="p-3.5 bg-amber-50 rounded-xl border border-amber-200 space-y-2 text-xs text-amber-950">
+            <p>
+              • <strong>Falla Primaria (Glándula Diana Dañada):</strong> Secreción periférica disminuida con pérdida del freno retroalimentario, generando elevación compensatoria de la hormona trófica hipofisaria (ej. Hipotiroidismo Primario: \(\downarrow\text{T}_4\) con \(\uparrow\uparrow\text{TSH}\); Insuficiencia Suprarrenal Primaria / Addison: \(\downarrow\text{Cortisol}\) con \(\uparrow\uparrow\text{ACTH}\)).
+            </p>
+            <p>
+              • <strong>Falla Secundaria (Adenohipófisis Afectada):</strong> La lesión hipofisaria arrastra la producción periférica (ej. Hipopituitarismo: \(\downarrow\text{TSH}\) con \(\downarrow\text{T}_4\); Adenoma corticotropo / Enf. de Cushing: \(\uparrow\text{ACTH}\) con \(\uparrow\text{Cortisol}\)).
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="bg-gray-50 p-4 border-t border-gray-200 flex justify-end">
+        <button onclick="closeFormulasModal()" class="px-5 py-2 bg-accent text-white font-semibold rounded-lg hover:bg-accent-hover text-xs transition shadow-sm">
+          Entendido
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: GUÍA DE USO INTERACTIVA ==================== -->
+  <div id="modal-tutorial" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center hidden p-4">
+    <div class="bg-white max-w-4xl w-full rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div class="bg-accent p-4 text-white flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-circle-question text-xl"></i>
+          <h3 class="font-bold text-base">Guía de Uso: Plataforma Interactiva de Fisiología Neuroendocrina</h3>
+        </div>
+        <button onclick="closeTutorial()" class="text-white hover:text-gray-200 transition">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      
+      <div class="p-6 overflow-y-auto space-y-6 text-xs md:text-sm text-gray-700 custom-scrollbar leading-relaxed">
+        
+        <!-- 1. Estructura y Navegación -->
+        <div>
+          <h4 class="font-bold text-accent text-sm mb-1 flex items-center gap-2">
+            <i class="fa-solid fa-compass"></i> 1. Navegación Modular Lateral
+          </h4>
+          <p class="text-gray-600">
+            Utiliza la barra de navegación lateral persistente en 2 columnas para recorrer los 7 módulos temáticos y el taller clínico, estructurados de acuerdo al programa de admisión a la carrera de Medicina de la Universidad Católica de Cuyo (UCCuyo). En la cabecera superior tienes acceso permanente al <strong>Vademécum Endocrinológico</strong> y a esta <strong>Guía de Uso</strong>.
+          </p>
+        </div>
+
+        <!-- 2. Módulos Temáticos y Características Interactivas -->
+        <div>
+          <h4 class="font-bold text-accent text-sm mb-2 flex items-center gap-2">
+            <i class="fa-solid fa-sliders"></i> 2. Módulos Temáticos y Herramientas Didácticas
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+            
+            <div class="p-3 bg-gray-50 rounded-xl border border-gray-200 space-y-1">
+              <div class="flex items-center gap-1.5 font-bold text-gray-800">
+                <i class="fa-solid fa-brain text-accent"></i> 1. Eje Hipotálamo-Hipófisis
+              </div>
+              <p class="text-gray-600 text-[11px]">
+                • <strong>Diagrama Anatómico SVG Interactivo:</strong> Haz clic sobre las estructuras de la silla turca (Hipotálamo, Eminencia Media, Tallo Infundibular, Adenohipófisis y Neurohipófisis) o usa los botones <em>"Vía Porta"</em> y <em>"Vía Axonal"</em> para visualizar el plexo vascular porta vs. el tracto axónico.<br>
+                • <strong>Panel de Células Adenohipofisarias:</strong> Selecciona entre las somatotropas, tirotropas, corticotropas, gonadotropas (FSH/LH) y lactotropas para desplegar su porcentaje poblacional, hormonas tróficas secretadas, regulación y correlato clínico UCCuyo.
+              </p>
+            </div>
+
+            <div class="p-3 bg-gray-50 rounded-xl border border-gray-200 space-y-1">
+              <div class="flex items-center gap-1.5 font-bold text-gray-800">
+                <i class="fa-solid fa-child-reaching text-accent"></i> 2. GH & Prolactina
+              </div>
+              <p class="text-gray-600 text-[11px]">
+                • <strong>Somatotropina ($\text{GH}$):</strong> Analiza la regulación dual hipotalámica ($\text{GHRH}$ estimulante vs. Somatostatina inhibitoria) y su doble vertiente: anabólica indirecta vía $\text{IGF-1}$ hepática (crecimiento longitudinal y masa muscular) vs. metabólica directa lipolítica y diabetógena/antiinsulínica.<br>
+                • <strong>Prolactina ($\text{PRL}$):</strong> Estudia el control inhibitorio tónico predominante ejercido por la dopamina ($\text{PIF}$) y comprende la distinción clave de cátedra: la prolactina estimula la síntesis/producción alveolar de leche, mientras que la oxitocina comanda la eyección mecánica.
+              </p>
+            </div>
+
+            <div class="p-3 bg-gray-50 rounded-xl border border-gray-200 space-y-1">
+              <div class="flex items-center gap-1.5 font-bold text-gray-800">
+                <i class="fa-solid fa-bone text-accent"></i> 3. Tiroides & Homeostasis del Calcio
+              </div>
+              <p class="text-gray-600 text-[11px]">
+                • <strong>Histología Tiroidea Interactiva:</strong> Haz clic en las Células Foliculares, la Luz y Coloide Folicular (tiroglobulina) o las Células Parafoliculares (células C) para examinar la síntesis y almacenamiento de $\text{T}_4/\text{T}_3$ y calcitonina.<br>
+                • <strong>Antagonismo del Calcio ($\text{PTH}$ vs. Calcitonina):</strong> Compara las acciones contrarias sobre la calcemia en los tres órganos efectores: hueso (resorción osteoclástica), riñón (reabsorción tubular y activación de 1,25-$(\text{OH})_2\text{D}_3$) e intestino.
+              </p>
+            </div>
+
+            <div class="p-3 bg-gray-50 rounded-xl border border-gray-200 space-y-1">
+              <div class="flex items-center gap-1.5 font-bold text-gray-800">
+                <i class="fa-solid fa-heart-pulse text-accent"></i> 4. Eje Adrenal & Estrés
+              </div>
+              <p class="text-gray-600 text-[11px]">
+                • <strong>Corteza Suprarrenal (Zonation):</strong> Explora la división concéntrica: Zona Glomerular (mineralocorticoides / Aldosterona vía renina-angiotensina), Zona Fasciculada (glucocorticoides / Cortisol vía $\text{CRH-ACTH}$) y Zona Reticular (andrógenos suprarrenales / $\text{DHEA}$).<br>
+                • <strong>Médula Suprarrenal:</strong> Respuesta de estrés agudo de "lucha o huida" comandada por catecolaminas (adrenalina y noradrenalina) derivadas de la tirosina.
+              </p>
+            </div>
+
+            <div class="p-3 bg-gray-50 rounded-xl border border-gray-200 space-y-1">
+              <div class="flex items-center gap-1.5 font-bold text-gray-800">
+                <i class="fa-solid fa-venus-mars text-accent"></i> 5. Eje Gonadal (FSH & LH)
+              </div>
+              <p class="text-gray-600 text-[11px]">
+                • <strong>Dimorfismo Funcional:</strong> Compara la acción de $\text{FSH}$ (espermatogénesis en Sertoli / foliculogénesis en Granulosa) y $\text{LH}$ (testosterona en Leydig / ovulación y cuerpo lúteo en la Teca).<br>
+                • <strong>Ciclo Ovárico Bifásico:</strong> Examina la transición de retroalimentación negativa folicular temprana al pico agudo de retroalimentación positiva estrogénica preovulatoria ($\text{LH-surge}$).
+              </p>
+            </div>
+
+            <div class="p-3 bg-gray-50 rounded-xl border border-gray-200 space-y-1">
+              <div class="flex items-center gap-1.5 font-bold text-gray-800">
+                <i class="fa-solid fa-droplet text-accent"></i> 6. ADH & Oxitocina (Neurohipófisis)
+              </div>
+              <p class="text-gray-600 text-[11px]">
+                • <strong>Vasopresina ($\text{ADH}$):</strong> Evalúa el control dual (osmolar mediante osmorreceptores hipotalámicos vs. volumétrico por barorreceptores carotídeos) y la inserción de acuaporinas-2 ($\text{AQP-2}$) en el túbulo colector.<br>
+                • <strong>Oxitocina:</strong> Estudia los bucles de retroalimentación positiva de amplificación exponencial: el Reflejo de Ferguson durante el trabajo de parto y el reflejo de eyección de leche materna.
+              </p>
+            </div>
+
+            <div class="p-3 bg-gray-50 rounded-xl border border-gray-200 space-y-1 md:col-span-2">
+              <div class="flex items-center gap-1.5 font-bold text-gray-800">
+                <i class="fa-solid fa-sliders text-accent"></i> 7. Consola de Bucles Dinámicos (Chart.js) & Taller de Casos Clínicos
+              </div>
+              <p class="text-gray-600 text-[11px]">
+                • <strong>Simulador Cuantitativo de Asas:</strong> Selecciona entre el <em>Eje Tiroideo</em>, <em>Eje Adrenal</em>, <em>Eje del Calcio</em> o la <em>Dinámica del Parto (Asa Positiva)</em>. Desplaza los sliders fisiopatológicos de secreción o hiperplasia para observar en tiempo real la compensación retrógrada en las curvas gráficas interactivas.<br>
+                • <strong>Taller de Razonamiento Clínico:</strong> Presiona el botón <em>"Ir al Taller de Casos Clínicos"</em> para enfrentarte a perfiles reales de laboratorio (hipotiroidismo primario vs. secundario, enfermedad de Cushing, etc.). Selecciona tu hipótesis diagnóstica y recibe retroalimentación formativa inmediata con cálculo de puntaje en vivo.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 3. Consejos de Estudio para Admisión UCCuyo -->
+        <div>
+          <h4 class="font-bold text-accent text-sm mb-1 flex items-center gap-2">
+            <i class="fa-solid fa-graduation-cap"></i> 3. Claves de Estudio y Evaluación UCCuyo
+          </h4>
+          <p class="text-gray-600">
+            Presta especial atención a la diferenciación entre afecciones <strong>primarias</strong> (la glándula periférica falla y la hormona hipofisaria sube de forma compensatoria) y <strong>secundarias</strong> (la hipófisis falla arrastrando a la glándula periférica), así como al balance entre retroalimentación negativa homeostática y bucles positivos con desenlace explosivo.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="bg-gray-50 p-4 border-t border-gray-200 flex justify-end">
+        <button onclick="closeTutorial()" class="px-5 py-2 bg-accent text-white font-semibold rounded-lg hover:bg-accent-hover text-xs transition shadow-sm">
+          Comenzar Experiencia
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    // Inicialización y Renderizado KaTeX
+    let hasRenderedGlobalMath = false;
+    function renderMath(targetElement) {
+      if (!window.renderMathInElement) return;
+      if (targetElement) {
+        renderMathInElement(targetElement, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false },
+            { left: '\\(', right: '\\)', display: false },
+            { left: '\\[', right: '\\]', display: true }
+          ],
+          ignoredClasses: ["no-math", "katex-ignore"],
+          ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "header"],
+          throwOnError: false
+        });
+      } else if (!hasRenderedGlobalMath) {
+        hasRenderedGlobalMath = true;
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false },
+            { left: '\\(', right: '\\)', display: false },
+            { left: '\\[', right: '\\]', display: true }
+          ],
+          ignoredClasses: ["no-math", "katex-ignore"],
+          ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "header"],
+          throwOnError: false
+        });
+      }
+    }
+
+    // Control de Modales Institucionales
+    function openFormulasModal() {
+      const el = document.getElementById('modal-formulas');
+      el.classList.remove('hidden');
+      if (window.renderMathInElement) {
+        renderMathInElement(el, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false },
+            { left: '\\(', right: '\\)', display: false },
+            { left: '\\[', right: '\\]', display: true }
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    function closeFormulasModal() {
+      document.getElementById('modal-formulas').classList.add('hidden');
+    }
+
+    function openTutorial() {
+      const el = document.getElementById('modal-tutorial');
+      el.classList.remove('hidden');
+      if (window.renderMathInElement) {
+        renderMathInElement(el, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false },
+            { left: '\\(', right: '\\)', display: false },
+            { left: '\\[', right: '\\]', display: true }
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    function closeTutorial() {
+      document.getElementById('modal-tutorial').classList.add('hidden');
+    }
+
+    // Navegación de pestañas laterales
+    function switchTab(tabId) {
+      document.querySelectorAll('.module-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('#navTabs .nav-btn').forEach(btn => {
+        btn.classList.remove('bg-accent', 'text-white', 'font-semibold', 'shadow-sm');
+        btn.classList.add('text-gray-700', 'hover:bg-gray-100', 'font-medium');
+      });
+
+      const activeContent = document.getElementById(`content-${tabId}`);
+      if (activeContent) {
+        activeContent.classList.remove('hidden');
+      }
+
+      const activeBtnId = tabId.startsWith('modulo7') ? 'tab-btn-modulo7' : `tab-btn-${tabId}`;
+      const activeTabBtn = document.getElementById(activeBtnId);
+      if (activeTabBtn) {
+        activeTabBtn.classList.add('bg-accent', 'text-white', 'font-semibold', 'shadow-sm');
+        activeTabBtn.classList.remove('text-gray-700', 'hover:bg-gray-100', 'font-medium');
+      }
+
+      if (tabId === 'modulo7') {
+        setTimeout(initSimulationChart, 150);
+      }
+      if (tabId === 'modulo7_casos') {
+        renderClinicalCases();
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (activeContent) {
+        renderMath(activeContent);
+      }
+    }
+
+    // ========================================================
+    // MÓDULO 1: INTERACTIVIDAD ANATÓMICA & CÉLULAS
+    // ========================================================
+    const anatomyData = {
+      hypothalamus: {
+        title: "Hipotálamo (Centro de Integración Neuroendocrina)",
+        badge: "Diencéfalo",
+        content: `
+          <p><strong>Ubicación y Función:</strong> Forma el piso y las paredes laterales del tercer ventrículo. Integra señales somatosensoriales, temperatura corporal, osmolaridad sérica y aferencias del sistema límbico (emociones y estrés).</p>
+          <p><strong>Poblaciones Neuronales Parvocelulares:</strong> Sintetizan neurohormonas liberadoras e inhibidoras ($\text{TRH, CRH, GnRH, GHRH}$, somatostatina y dopamina) que se liberan hacia el <em>plexo capilar primario</em> de la eminencia media.</p>
+          <p><strong>Poblaciones Magnocelulares:</strong> Ubicadas en los núcleos supraóptico ($\text{SON}$) y paraventricular ($\text{PVN}$), cuyos axones proyectan ininterrumpidamente hacia la neurohipófisis.</p>
+        `
+      },
+      porta: {
+        title: "Sistema Porta Hipofisiario (Vía Microvascular Selectiva)",
+        badge: "Vía de Baja Presión",
+        content: `
+          <p><strong>Trayecto Anatómico:</strong> Arteria hipofisaria superior $\\to$ <em>Plexo capilar primario</em> (en infundíbulo y eminencia media) $\\to$ <em>Venas portas hipofisiarias</em> largas y cortas a lo largo del tallo $\\to$ <em>Plexo capilar secundario fenestrado</em> en la adenohipófisis.</p>
+          <p><strong>Significado Fisiológico Vital:</strong> Impide que las neurohormonas hipotalámicas se diluyan en los 5 litros de la volemia sistémica general. Permite alcanzar concentraciones micromolares inmediatas y eficaces con secreciones hipotalámicas mínimas.</p>
+        `
+      },
+      adeno: {
+        title: "Adenohipófisis (Lóbulo Anterior)",
+        badge: "Glándula Epitelial Verdadera",
+        content: `
+          <p><strong>Origen Embriológico:</strong> Evaginación del ectodermo del techo de la cavidad bucal primitiva (Bolsa de Rathke).</p>
+          <p><strong>Organización Histológica:</strong> Nidos y cordones de células epiteliales glandulares rodeadas por capilares sinusoidales fenestrados. Sintetiza seis hormonas peptídicas vitales: somatotrópicas ($\text{GH}$), tirotropas ($\text{TSH}$), corticotropas ($\text{ACTH}$), gonadotropas ($\text{FSH, LH}$) y lactotropas ($\text{Prolactina}$).</p>
+        `
+      },
+      neuro: {
+        title: "Neurohipófisis (Lóbulo Posterior)",
+        badge: "Extensión Neural Directa",
+        content: `
+          <p><strong>Estructura Histológica:</strong> No es una glándula epitelial verdadera; está compuesta por aproximadamente 100.000 axones amielínicos procedentes de neuronas magnocelulares hipotalámicas y células gliales modificadas de soporte llamadas <em>Pituicitos</em>.</p>
+          <p><strong>Almacenamiento:</strong> Las hormonas sintetizadas en los somas hipotalámicos viajan por transporte axoplasmático lento unidas a neurofisinas y se almacenan en dilataciones axonales llamadas <em>Cuerpos de Herring</em> hasta su exocitosis directa a capilares fenestrados.</p>
+        `
+      }
+    };
+
+    function selectStructure(id) {
+      const data = anatomyData[id];
+      if (!data) return;
+      document.getElementById('anat-info-title').textContent = data.title;
+      document.getElementById('anat-info-badge').textContent = data.badge;
+      document.getElementById('anat-info-body').innerHTML = data.content;
+      renderMath();
+    }
+
+    function setAnatomyView(mode) {
+      if (mode === 'porta') {
+        selectStructure('porta');
+      } else {
+        selectStructure('neuro');
+      }
+    }
+
+    // Datos de Células Adenohipofisarias
+    const adenoCells = {
+      somato: {
+        cell: "Células Somatotropas",
+        prop: "~50% del total adenohipofisario (las más abundantes)",
+        hormone: "Hormona de Crecimiento (\\text{GH} / Somatotropina)",
+        reg: "\\text{GHRH} (+) / Somatostatina (-)",
+        target: "Hígado (\\text{IGF-1}), cartílago epifisario, tejido adiposo, músculo esquelético",
+        clinical: "Exceso en infancia: Gigantismo. Exceso poscierre epifisario: Acromegalia. Déficit: Enanismo hipofisario armónico."
+      },
+      tiro: {
+        cell: "Células Tirotropas",
+        prop: "~5% del total",
+        hormone: "Tirotropina (\\text{TSH})",
+        reg: "\\text{TRH} hipotalámica (+) / \\text{T}_3, \\text{T}_4 (-)",
+        target: "Células foliculares de la glándula tiroides",
+        clinical: "Estimula la captación de yoduro, síntesis de tiroglobulina y proteólisis de \\text{T}_3/\\text{T}_4. Elevada en hipotiroidismo primario."
+      },
+      cortico: {
+        cell: "Células Corticotropas",
+        prop: "~15-20% del total",
+        hormone: "Corticotropina (\\text{ACTH})",
+        reg: "\\text{CRH} (+) / Cortisol circulante (-)",
+        target: "Corteza suprarrenal (zona fasciculada y reticular)",
+        clinical: "Hipersecreción por adenoma hipofisario genera la Enfermedad de Cushing (obesidad centrípeta, estrías purpúreas, hiperglucemia)."
+      },
+      gonado_fsh: {
+        cell: "Células Gonadotropas",
+        prop: "~10% del total",
+        hormone: "Hormona Foliculoestimulante (\\text{FSH})",
+        reg: "\\text{GnRH} pulsátil lenta (+) / Inhibina B (-)",
+        target: "Ovario (células granulosa) / Testículo (células Sertoli)",
+        clinical: "Gobierna la gametogénesis: reclutamiento folicular ovárico y espermatogénesis en el varón."
+      },
+      gonado_lh: {
+        cell: "Células Gonadotropas",
+        prop: "~10% del total",
+        hormone: "Hormona Luteinizante (\\text{LH})",
+        reg: "\\text{GnRH} pulsátil rápida (+) / Esteroides gonadales (+/-)",
+        target: "Ovario (teca y cuerpo lúteo) / Testículo (células Leydig)",
+        clinical: "Desencadena la ovulación y mantiene la secreción de testosterona y progesterona."
+      },
+      lacto: {
+        cell: "Células Lactotropas (Mamotropas)",
+        prop: "~15-20% (se hipertrofian en embarazo)",
+        hormone: "Prolactina (\\text{PRL})",
+        reg: "Dopamina (-) [freno tónico permanente] / \\text{TRH} (+ en patología)",
+        target: "Epitelio alveolar de la glándula mamaria",
+        clinical: "Los prolactinomas son los tumores hipofisarios más frecuentes (galactorrea, amenorrea e hipogonadismo por bloqueo de \\text{GnRH})."
+      }
+    };
+
+    function showAdenoCell(key) {
+      document.querySelectorAll('.cell-btn').forEach(b => {
+        b.classList.remove('bg-pituitary-50', 'border-pituitary-400', 'text-pituitary-700');
+      });
+      const btn = document.getElementById(`btn-cell-${key}`);
+      if (btn) {
+        btn.classList.add('bg-pituitary-50', 'border-pituitary-400', 'text-pituitary-700');
+      }
+
+      const item = adenoCells[key];
+      const box = document.getElementById('adeno-detail-box');
+      box.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2 py-0.5 rounded bg-pituitary-100 text-pituitary-800 font-bold">${item.cell}</span>
+              <span class="text-slate-500 font-medium">${item.prop}</span>
+            </div>
+            <h4 class="text-base font-bold text-slate-900 mb-1">$${item.hormone}$</h4>
+            <p class="text-slate-600 mb-2"><strong>Regulación Neuroendocrina:</strong> $${item.reg}$</p>
+            <p class="text-slate-600"><strong>Órgano / Tejido Blanco:</strong> ${item.target}</p>
+          </div>
+          <div class="bg-white p-3.5 rounded-xl border border-slate-200 flex flex-col justify-between">
+            <div>
+              <span class="font-bold text-vascular-700 block mb-1">Relevancia Médico-Clínica UCCuyo:</span>
+              <p class="text-slate-600 leading-relaxed">${item.clinical}</p>
+            </div>
+            <div class="mt-2 text-right">
+              <span class="text-[10px] text-slate-400 font-mono">Eje Hipotálamo-Adenohipófisis</span>
+            </div>
+          </div>
+        </div>
+      `;
+      renderMath();
+    }
+
+    // ========================================================
+    // MÓDULO 3: HISTOLOGÍA TIROIDEA
+    // ========================================================
+    const thyroidHistData = {
+      follicular: {
+        title: "Células Foliculares Tiroideas (Tirocitos)",
+        text: "<p>Epitelio simple que delimita el folículo. Poseen receptores para $\\text{TSH}$. En reposo son cúbicas; ante estímulo hipertrófico de $\\text{TSH}$ se vuelven cilíndricas altas con intensa pinocitosis de coloide para liberar $\\text{T}_3$ y $\\text{T}_4$.</p>"
+      },
+      coloide: {
+        title: "Luz y Coloide Folicular",
+        text: "<p>Depósito extracelular gelatinoso compuesto principalmente por <strong>Tiroglobulina</strong>. Es el único tejido endocrino del organismo humano capaz de almacenar hasta 2-3 meses de reserva hormonal antes de su secreción a la sangre.</p>"
+      },
+      'c-cells': {
+        title: "Células Parafoliculares (Células C)",
+        text: "<p>Derivadas de las crestas neurales (cuerpo ultimobranquial). Se ubican en el intersticio entre folículos. Sintetizan y secretan <strong>Calcitonina</strong> frente a la hipercalcemia para proteger transitoriamente la masa esquelética.</p>"
+      }
+    };
+
+    function showThyroidHist(type) {
+      const data = thyroidHistData[type];
+      if (!data) return;
+      document.getElementById('thyroid-hist-title').textContent = data.title;
+      document.getElementById('thyroid-hist-desc').innerHTML = data.text;
+      renderMath();
+    }
+
+    // ========================================================
+    // MÓDULO 7: SIMULADOR DE ASAS DINÁMICAS (CHART.JS)
+    // ========================================================
+    let currentSimMode = 'tiroides';
+    let simChartInstance = null;
+    let laborInterval = null;
+    let laborSeconds = 0;
+
+    function setSimMode(mode) {
+      currentSimMode = mode;
+      document.querySelectorAll('.sim-selector-btn').forEach(btn => {
+        btn.classList.remove('bg-amber-500', 'bg-emerald-600', 'bg-sky-600', 'bg-rose-600', 'text-white');
+        btn.classList.add('bg-slate-100', 'text-slate-700');
+      });
+
+      const activeBtn = document.getElementById(`sim-btn-${mode}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-slate-100', 'text-slate-700');
+        if (mode === 'tiroides') activeBtn.classList.add('bg-amber-500', 'text-white');
+        if (mode === 'adrenal') activeBtn.classList.add('bg-emerald-600', 'text-white');
+        if (mode === 'calcio') activeBtn.classList.add('bg-sky-600', 'text-white');
+        if (mode === 'parto') activeBtn.classList.add('bg-rose-600', 'text-white');
+      }
+
+      if (laborInterval) {
+        clearInterval(laborInterval);
+        laborInterval = null;
+      }
+
+      updateSimulatorUI();
+    }
+
+    function updateSimulatorUI() {
+      const container = document.getElementById('sim-container');
+      
+      if (currentSimMode === 'tiroides') {
+        container.innerHTML = `
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-5 space-y-4">
+              <div class="border-b pb-3">
+                <span class="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">Asa Larga Negativa</span>
+                <h4 class="text-base font-bold text-slate-900 mt-1">Regulación del Eje Tiroideo</h4>
+                <p class="text-xs text-slate-500">Mueve el control de concentración periférica de $\\text{T}_3/\\text{T}_4$ para observar el frenado automático de $\\text{TSH}$ y $\\text{TRH}$.</p>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-semibold mb-1">
+                  <label class="text-slate-700">Nivel Circulante de $[\\text{T}_3 / \\text{T}_4]$</label>
+                  <span id="slider-val-tiro" class="text-amber-700 font-mono font-bold">100% (Eutiroideo)</span>
+                </div>
+                <input type="range" id="sim-slider-tiro" min="10" max="250" value="100" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600" oninput="updateThyroidLoop(this.value)">
+                <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+                  <span>Hipotiroidismo severo (10%)</span>
+                  <span>Eutiroideo (100%)</span>
+                  <span>Tirotoxicosis (250%)</span>
+                </div>
+              </div>
+
+              <!-- Indicadores Numéricos Calculados -->
+              <div class="grid grid-cols-3 gap-2 text-center text-xs pt-2">
+                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-500 block text-[10px] font-bold">$\\text{TRH}$ Hipotalámica</span>
+                  <span id="metric-trh" class="text-base font-extrabold text-slate-900 font-mono">1.00</span>
+                  <span class="text-[9px] text-slate-400 block">u.a. relativas</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-500 block text-[10px] font-bold">$\\text{TSH}$ Hipofisaria</span>
+                  <span id="metric-tsh" class="text-base font-extrabold text-vascular-700 font-mono">2.50</span>
+                  <span class="text-[9px] text-slate-400 block">$\\mu\\text{UI/mL}$</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-500 block text-[10px] font-bold">Metabolismo Basal</span>
+                  <span id="metric-mb" class="text-base font-extrabold text-amber-700 font-mono">100%</span>
+                  <span class="text-[9px] text-slate-400 block">Consumo $\\text{O}_2$</span>
+                </div>
+              </div>
+
+              <div id="sim-diag-box" class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700">
+                <strong>Estado Fisiológico:</strong> Eutiroideo normofuncionante. Señales inhibitorias equilibradas.
+              </div>
+            </div>
+
+            <div class="lg:col-span-7 bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between">
+              <span class="text-xs font-bold text-slate-700 mb-2">Curvas de Compensación Neuroendocrina en Tiempo Real</span>
+              <div class="h-64 relative">
+                <canvas id="simChart"></canvas>
+              </div>
+              <div class="text-[11px] text-slate-500 mt-2 flex justify-between">
+                <span>Azul: Concentración de $\\text{TSH}$ adenohipofisaria</span>
+                <span>Naranja: $[\\text{T}_3/\\text{T}_4]$ tiroideas</span>
+              </div>
+            </div>
+          </div>
+        `;
+        initThyroidChart();
+      } else if (currentSimMode === 'adrenal') {
+        container.innerHTML = `
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-5 space-y-4">
+              <div class="border-b pb-3">
+                <span class="text-xs font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Asa Larga de Cortisol</span>
+                <h4 class="text-base font-bold text-slate-900 mt-1">Eje Suprarrenal y Retroinhibición</h4>
+                <p class="text-xs text-slate-500">Ajusta el valor sérico de $[\\text{Cortisol}]$ para visualizar la atenuación inmediata de $\\text{CRH}$ y $\\text{ACTH}$.</p>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-semibold mb-1">
+                  <label class="text-slate-700">Nivel Sérico de $[\\text{Cortisol}]$</label>
+                  <span id="slider-val-cort" class="text-emerald-700 font-mono font-bold">12 mcg/dL (Normal)</span>
+                </div>
+                <input type="range" id="sim-slider-cort" min="1" max="45" value="12" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600" oninput="updateAdrenalLoop(this.value)">
+                <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+                  <span>Insuficiencia (Addison)</span>
+                  <span>Basal Mañana (12)</span>
+                  <span>Hipercortisolismo (Cushing)</span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-3 gap-2 text-center text-xs pt-2">
+                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-500 block text-[10px] font-bold">$\\text{CRH}$</span>
+                  <span id="metric-crh" class="text-base font-extrabold text-slate-900 font-mono">1.0</span>
+                  <span class="text-[9px] text-slate-400 block">Plexo primario</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-500 block text-[10px] font-bold">$\\text{ACTH}$</span>
+                  <span id="metric-acth" class="text-base font-extrabold text-emerald-700 font-mono">25</span>
+                  <span class="text-[9px] text-slate-400 block">$\\text{pg/mL}$</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-500 block text-[10px] font-bold">Glucemia Estimada</span>
+                  <span id="metric-glu" class="text-base font-extrabold text-amber-700 font-mono">92</span>
+                  <span class="text-[9px] text-slate-400 block">$\\text{mg/dL}$</span>
+                </div>
+              </div>
+
+              <div id="sim-cort-diag" class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700">
+                <strong>Estado:</strong> Eucortisolismo fisiológico matinal normal.
+              </div>
+            </div>
+
+            <div class="lg:col-span-7 bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between">
+              <span class="text-xs font-bold text-slate-700 mb-2">Respuesta Plasmática Recíproca (Asa Larga)</span>
+              <div class="h-64 relative">
+                <canvas id="simChart"></canvas>
+              </div>
+            </div>
+          </div>
+        `;
+        initAdrenalChart();
+      } else if (currentSimMode === 'calcio') {
+        container.innerHTML = `
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-5 space-y-4">
+              <div class="border-b pb-3">
+                <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded border border-sky-200">Regulación Iónica Vital</span>
+                <h4 class="text-base font-bold text-slate-900 mt-1">Homeostasis del Calcio Plasmático ($[\\text{Ca}^{2+}]$)</h4>
+                <p class="text-xs text-slate-500">Mueve la calcemia para activar el sensor $\\text{CaSR}$ y observar el antagonismo entre $\\text{PTH}$ y Calcitonina.</p>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-semibold mb-1">
+                  <label class="text-slate-700">Calcemia Total Sérica</label>
+                  <span id="slider-val-ca" class="text-sky-700 font-mono font-bold">9.5 mg/dL (Normal)</span>
+                </div>
+                <input type="range" id="sim-slider-ca" min="5.5" max="14.5" step="0.1" value="9.5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-sky-600" oninput="updateCalciumLoop(this.value)">
+                <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+                  <span>Hipocalcemia (5.5)</span>
+                  <span>Rango Normal (8.5 - 10.5)</span>
+                  <span>Hipercalcemia (14.5)</span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-3 gap-2 text-center text-xs pt-2">
+                <div class="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200">
+                  <span class="text-emerald-900 block text-[10px] font-bold">$\\text{PTH}$ (Paratiroides)</span>
+                  <span id="metric-pth" class="text-base font-extrabold text-emerald-700 font-mono">35</span>
+                  <span class="text-[9px] text-emerald-600 block">$\\text{pg/mL}$</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-sky-50 border border-sky-200">
+                  <span class="text-sky-900 block text-[10px] font-bold">Calcitonina (Células C)</span>
+                  <span id="metric-calcitonina" class="text-base font-extrabold text-sky-700 font-mono">3.0</span>
+                  <span class="text-[9px] text-sky-600 block">$\\text{pg/mL}$</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-600 block text-[10px] font-bold">Resorción Ósea</span>
+                  <span id="metric-bone" class="text-base font-extrabold text-slate-900 font-mono">Basal</span>
+                  <span class="text-[9px] text-slate-400 block">Actividad Osteoclástica</span>
+                </div>
+              </div>
+
+              <div id="sim-ca-diag" class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700">
+                <strong>Sensor $\\text{CaSR}$:</strong> Calcemia dentro del set-point óptimo. Secreción basal de $\\text{PTH}$ activa reabsorción tubular estándar.
+              </div>
+            </div>
+
+            <div class="lg:col-span-7 bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between">
+              <span class="text-xs font-bold text-slate-700 mb-2">Comportamiento Antagonista: $\\text{PTH}$ vs. Calcitonina</span>
+              <div class="h-64 relative">
+                <canvas id="simChart"></canvas>
+              </div>
+            </div>
+          </div>
+        `;
+        initCalciumChart();
+      } else if (currentSimMode === 'parto') {
+        container.innerHTML = `
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-5 space-y-4">
+              <div class="border-b pb-3">
+                <span class="text-xs font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">Bucle Positivo Autoamplificado</span>
+                <h4 class="text-base font-bold text-slate-900 mt-1">Reflejo de Ferguson durante el Trabajo de Parto</h4>
+                <p class="text-xs text-slate-500">Inicia la simulación para registrar el aumento continuo y sincrónico de oxitocina junto con la presión intrauterina.</p>
+              </div>
+
+              <div class="flex gap-2">
+                <button onclick="startLaborSimulation()" id="labor-start-btn" class="flex-1 py-2 rounded-xl bg-rose-600 text-white font-bold text-xs hover:bg-rose-700 transition shadow-sm">
+                  Iniciar Dinámica de Parto
+                </button>
+                <button onclick="resetLaborSimulation()" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs hover:bg-slate-200 transition border border-slate-200">
+                  Reiniciar
+                </button>
+              </div>
+
+              <div class="grid grid-cols-3 gap-2 text-center text-xs pt-2">
+                <div class="p-2.5 rounded-xl bg-rose-50 border border-rose-200">
+                  <span class="text-rose-900 block text-[10px] font-bold">Oxitocina Sérica</span>
+                  <span id="labor-metric-oxy" class="text-base font-extrabold text-rose-700 font-mono">15</span>
+                  <span class="text-[9px] text-rose-600 block">$\\mu\\text{U/mL}$</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-600 block text-[10px] font-bold">Presión Miometrial</span>
+                  <span id="labor-metric-press" class="text-base font-extrabold text-slate-900 font-mono">12</span>
+                  <span class="text-[9px] text-slate-400 block">$\\text{mmHg}$</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-600 block text-[10px] font-bold">Dilatación Cervical</span>
+                  <span id="labor-metric-dilat" class="text-base font-extrabold text-slate-900 font-mono">2 cm</span>
+                  <span class="text-[9px] text-slate-400 block">Apertura Mecánica</span>
+                </div>
+              </div>
+
+              <div id="labor-status-box" class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700">
+                <strong>Fase:</strong> Estado latente preparatorio. Las aferencias mecanorreceptoras del cérvix están basales.
+              </div>
+            </div>
+
+            <div class="lg:col-span-7 bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between">
+              <span class="text-xs font-bold text-slate-700 mb-2">Registro Gráfico de Amplificación Exponencial ( Ferguson )</span>
+              <div class="h-64 relative">
+                <canvas id="simChart"></canvas>
+              </div>
+            </div>
+          </div>
+        `;
+        initLaborChart();
+      }
+      renderMath();
+    }
+
+    // Funciones Gráficas para Chart.js
+    function initThyroidChart() {
+      const ctx = document.getElementById('simChart');
+      if (!ctx) return;
+      if (simChartInstance) simChartInstance.destroy();
+
+      const labels = ['0%', '30%', '60%', '100% (Normal)', '150%', '200%', '250%'];
+      const dataTSH = [45, 18, 7.5, 2.5, 0.4, 0.08, 0.01];
+      const dataT3T4 = [0, 30, 60, 100, 150, 200, 250];
+
+      simChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'TSH Adenohipofisaria (μUI/mL)',
+              data: dataTSH,
+              borderColor: '#0284c7',
+              backgroundColor: 'rgba(2, 132, 199, 0.1)',
+              yAxisID: 'y',
+              tension: 0.35,
+              fill: true,
+              pointRadius: 4
+            },
+            {
+              label: 'Concentración de T3/T4 (%)',
+              data: dataT3T4,
+              borderColor: '#d97706',
+              borderDash: [5, 5],
+              yAxisID: 'y1',
+              tension: 0.1,
+              pointRadius: 3
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              type: 'linear',
+              display: true,
+              position: 'left',
+              title: { display: true, text: 'TSH (μUI/mL)', font: { size: 10 } }
+            },
+            y1: {
+              type: 'linear',
+              display: true,
+              position: 'right',
+              grid: { drawOnChartArea: false },
+              title: { display: true, text: 'T3/T4 (%)', font: { size: 10 } }
+            }
+          },
+          plugins: {
+            legend: { position: 'top', labels: { boxWidth: 12, font: { size: 10 } } }
+          }
+        }
+      });
+    }
+
+    function updateThyroidLoop(val) {
+      const v = parseFloat(val);
+      document.getElementById('slider-val-tiro').textContent = `${v}%`;
+      
+      let tsh = 2.5 * Math.pow(100 / Math.max(v, 15), 1.6);
+      if (tsh > 60) tsh = 60;
+      if (tsh < 0.02) tsh = 0.02;
+
+      let trh = 100 / Math.max(v, 20);
+      let mb = Math.round(70 + (v * 0.3));
+
+      document.getElementById('metric-tsh').textContent = tsh.toFixed(2);
+      document.getElementById('metric-trh').textContent = trh.toFixed(2);
+      document.getElementById('metric-mb').textContent = `${mb}%`;
+
+      const diag = document.getElementById('sim-diag-box');
+      if (v < 60) {
+        diag.className = "p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-900";
+        diag.innerHTML = `<strong>Hipotiroidismo:</strong> Caída de hormonas tiroideas desinhibe la hipófisis $\\to$ secreción compensatoria masiva de $\\text{TSH}$.`;
+      } else if (v > 150) {
+        diag.className = "p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900";
+        diag.innerHTML = `<strong>Hipertiroidismo / Tirotoxicosis:</strong> El exceso de hormonas tiroideas apaga la transcripción de $\\text{TSH}$ (supresión $<0.1\\ \\mu\\text{UI/mL}$).`;
+      } else {
+        diag.className = "p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700";
+        diag.innerHTML = `<strong>Eutiroideo:</strong> Retroalimentación equilibrada dentro de rangos normales.`;
+      }
+      renderMath();
+    }
+
+    function initAdrenalChart() {
+      const ctx = document.getElementById('simChart');
+      if (!ctx) return;
+      if (simChartInstance) simChartInstance.destroy();
+
+      simChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['2 (Addison)', '6', '12 (Normal)', '20', '30 (Estrés)', '45 (Cushing)'],
+          datasets: [
+            {
+              label: 'ACTH (pg/mL)',
+              data: [180, 80, 25, 10, 4, 1.2],
+              borderColor: '#16a34a',
+              backgroundColor: 'rgba(22, 163, 74, 0.1)',
+              tension: 0.3,
+              fill: true
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: { title: { display: true, text: 'ACTH Sérica (pg/mL)' } }
+          },
+          plugins: { legend: { labels: { boxWidth: 12, font: { size: 10 } } } }
+        }
+      });
+    }
+
+    function updateAdrenalLoop(val) {
+      const v = parseFloat(val);
+      document.getElementById('slider-val-cort').textContent = `${v} mcg/dL`;
+
+      let acth = Math.round(25 * (12 / Math.max(v, 2)));
+      let crh = (12 / Math.max(v, 2)).toFixed(2);
+      let glu = Math.round(75 + (v * 1.6));
+
+      document.getElementById('metric-acth').textContent = acth;
+      document.getElementById('metric-crh').textContent = crh;
+      document.getElementById('metric-glu').textContent = glu;
+
+      const diag = document.getElementById('sim-cort-diag');
+      if (v < 5) {
+        diag.className = "p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-900";
+        diag.innerHTML = `<strong>Insuficiencia Suprarrenal Primaria:</strong> El déficit de cortisol produce hipersecreción de $\\text{ACTH}$ (y $\\text{MSH}$, causando hiperpigmentación). Riesgo de hipoglucemia y shock.`;
+      } else if (v > 25) {
+        diag.className = "p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900";
+        diag.innerHTML = `<strong>Hipercortisolismo:</strong> Retroalimentación de asa larga bloquea intensamente la adenohipófisis. Estimula gluconeogénesis persistente (hiperglucemia secundaria).`;
+      } else {
+        diag.className = "p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700";
+        diag.innerHTML = `<strong>Fisiología Normal:</strong> Ritmo y concentración en ventana homeostática.`;
+      }
+      renderMath();
+    }
+
+    function initCalciumChart() {
+      const ctx = document.getElementById('simChart');
+      if (!ctx) return;
+      if (simChartInstance) simChartInstance.destroy();
+
+      const labels = ['6.0', '7.0', '8.0', '9.5 (Normal)', '11.0', '12.5', '14.0'];
+      simChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'PTH Hipercalcemiante (pg/mL)',
+              data: [120, 85, 55, 35, 12, 4, 1],
+              borderColor: '#10b981',
+              backgroundColor: 'rgba(16, 185, 129, 0.1)',
+              yAxisID: 'y',
+              tension: 0.35,
+              fill: true
+            },
+            {
+              label: 'Calcitonina Hipocalcemiante (pg/mL)',
+              data: [1.2, 1.5, 2.0, 3.2, 7.5, 16.0, 32.0],
+              borderColor: '#0284c7',
+              borderDash: [4, 4],
+              yAxisID: 'y1',
+              tension: 0.35
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: { title: { display: true, text: 'PTH (pg/mL)' } },
+            y1: {
+              position: 'right',
+              grid: { drawOnChartArea: false },
+              title: { display: true, text: 'Calcitonina (pg/mL)' }
+            }
+          },
+          plugins: { legend: { labels: { boxWidth: 12, font: { size: 10 } } } }
+        }
+      });
+    }
+
+    function updateCalciumLoop(val) {
+      const v = parseFloat(val);
+      document.getElementById('slider-val-ca').textContent = `${v.toFixed(1)} mg/dL`;
+
+      let pth = 35 * Math.pow(9.5 / v, 2.5);
+      if (pth > 150) pth = 150;
+      if (pth < 2) pth = 2;
+
+      let calcitonina = 3.0 * Math.pow(v / 9.5, 2.2);
+
+      document.getElementById('metric-pth').textContent = Math.round(pth);
+      document.getElementById('metric-calcitonina').textContent = calcitonina.toFixed(1);
+
+      const bone = document.getElementById('metric-bone');
+      const diag = document.getElementById('sim-ca-diag');
+
+      if (v < 8.5) {
+        bone.textContent = "↑ Resorción Severa";
+        diag.className = "p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-900";
+        diag.innerHTML = `<strong>Hipocalcemia:</strong> El receptor $\\text{CaSR}$ paratiroideo detecta hipocalcemia $\\to$ secreción explosiva de $\\text{PTH}$ para movilizar calcio óseo y sintetizar calcitriol renal. Riesgo de tetania.`;
+      } else if (v > 10.5) {
+        bone.textContent = "Inhibida (Reposo)";
+        diag.className = "p-3 rounded-xl bg-sky-50 border border-sky-200 text-xs text-sky-900";
+        diag.innerHTML = `<strong>Hipercalcemia:</strong> Inhibición casi total de $\\text{PTH}$. Se activa la calcitonina en células C para proteger al hueso de mayor degradación.`;
+      } else {
+        bone.textContent = "Remodelado Basal";
+        diag.className = "p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700";
+        diag.innerHTML = `<strong>Normocalcemia:</strong> Ventana terapéutica óptima ($8.5 - 10.5\\ \\text{mg/dL}$).`;
+      }
+      renderMath();
+    }
+
+    function initLaborChart() {
+      const ctx = document.getElementById('simChart');
+      if (!ctx) return;
+      if (simChartInstance) simChartInstance.destroy();
+
+      simChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['0 min', '15 min', '30 min', '45 min', '60 min', 'Expulsión (75 min)'],
+          datasets: [
+            {
+              label: 'Oxitocina Sérica (μU/mL)',
+              data: [15, 25, 45, 80, 150, 240],
+              borderColor: '#e11d48',
+              backgroundColor: 'rgba(225, 29, 72, 0.1)',
+              yAxisID: 'y',
+              tension: 0.4,
+              fill: true
+            },
+            {
+              label: 'Presión Uterina Intraamniótica (mmHg)',
+              data: [12, 18, 30, 50, 75, 110],
+              borderColor: '#475569',
+              borderDash: [4, 3],
+              yAxisID: 'y1',
+              tension: 0.4
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: { title: { display: true, text: 'Oxitocina (μU/mL)' } },
+            y1: {
+              position: 'right',
+              grid: { drawOnChartArea: false },
+              title: { display: true, text: 'Presión (mmHg)' }
+            }
+          },
+          plugins: { legend: { labels: { boxWidth: 12, font: { size: 10 } } } }
+        }
+      });
+    }
+
+    function startLaborSimulation() {
+      const btn = document.getElementById('labor-start-btn');
+      btn.disabled = true;
+      btn.textContent = "Simulando dinámica exponencial...";
+
+      laborSeconds = 0;
+      if (laborInterval) clearInterval(laborInterval);
+
+      laborInterval = setInterval(() => {
+        laborSeconds++;
+        const oxy = Math.round(15 * Math.exp(0.45 * laborSeconds));
+        const press = Math.round(12 + (laborSeconds * 16));
+        const dilat = Math.min(10, 2 + Math.round(laborSeconds * 1.4));
+
+        document.getElementById('labor-metric-oxy').textContent = oxy;
+        document.getElementById('labor-metric-press').textContent = press;
+        document.getElementById('labor-metric-dilat').textContent = `${dilat} cm`;
+
+        const box = document.getElementById('labor-status-box');
+        if (laborSeconds < 3) {
+          box.innerHTML = `<strong>Fase Activa:</strong> La distensión cervical incrementa las descargas del núcleo paraventricular $\\to$ ascenso de oxitocina.`;
+        } else if (laborSeconds < 5) {
+          box.innerHTML = `<strong>Amplificación Máxima:</strong> Cada contracción comprime más el cérvix contra la presentación fetal, retroalimentando positivamente la liberación de oxitocina.`;
+        } else {
+          box.className = "p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-900";
+          box.innerHTML = `<strong>Periodo Expulsivo / Parto Concluido:</strong> Nacimiento del recién nacido. Al cesar el estímulo mecánico en los receptores cervicales, el bucle se colapsa de inmediato a niveles de reposo.`;
+          clearInterval(laborInterval);
+          btn.disabled = false;
+          btn.textContent = "Simular Nuevamente";
+        }
+        renderMath();
+      }, 1000);
+    }
+
+    function resetLaborSimulation() {
+      if (laborInterval) clearInterval(laborInterval);
+      document.getElementById('labor-start-btn').disabled = false;
+      document.getElementById('labor-start-btn').textContent = "Iniciar Dinámica de Parto";
+      document.getElementById('labor-metric-oxy').textContent = "15";
+      document.getElementById('labor-metric-press').textContent = "12";
+      document.getElementById('labor-metric-dilat').textContent = "2 cm";
+      document.getElementById('labor-status-box').className = "p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700";
+      document.getElementById('labor-status-box').innerHTML = `<strong>Fase:</strong> Estado latente preparatorio.`;
+      renderMath();
+    }
+
+    // ========================================================
+    // TALLER DE CASOS CLÍNICOS
+    // ========================================================
+    const clinicalCases = [
+      {
+        id: 1,
+        title: "Caso 1: Fatiga, Aumento de Peso y Bocio en Mujer de 28 Años",
+        vignette: "Paciente femenina de 28 años consulta por astenia marcada, intolerancia al frío, piel seca y estreñimiento progresivo. Al examen se constata agrandamiento difuso e indoloro de la glándula tiroides (bocio). Los análisis séricos revelan: $\\text{TSH} = 24.5\\ \\mu\\text{UI/mL}$ (VN: $0.4 - 4.0$) y $\\text{T}_4\\text{ Libre} = 0.3\\ \\text{ng/dL}$ (VN: $0.8 - 1.8$).",
+        question: "¿Cuál es el diagnóstico fisiopatológico y el mecanismo neuroendocrino subyacente?",
+        options: [
+          { text: "Hipotiroidismo secundario por adenoma hipofisario productor de TSH.", correct: false, feedback: "Incorrecto: Si fuera un adenoma hipofisario productor de TSH, la T4 libre estaría muy elevada (hipertiroidismo secundario)." },
+          { text: "Hipotiroidismo primario (falla tiroidea intrínseca con pérdida de retroalimentación negativa sobre la adenohipófisis).", correct: true, feedback: "¡Correcto! Al dañarse la glándula tiroides, los niveles bajos de T3/T4 no pueden frenar a la adenohipófisis, la cual responde con hipersecreción compensatoria de TSH." },
+          { text: "Tirotoxicosis primaria por enfermedad de Graves.", correct: false, feedback: "Incorrecto: En la tirotoxicosis la T4 estaría alta y la TSH completamente suprimida (< 0.1)." },
+          { text: "Déficit aislado de TRH hipotalámica.", correct: false, feedback: "Incorrecto: Un déficit de TRH provocaría tanto TSH baja como T4 baja (hipotiroidismo terciario)." }
+        ]
+      },
+      {
+        id: 2,
+        title: "Caso 2: Cólicos Nefríticos a Repetición y Osteopenia en Varón de 52 Años",
+        vignette: "Paciente masculino de 52 años es evaluado tras expulsar su tercer cálculo renal de oxalato de calcio en 6 meses. La densitometría ósea evidencia marcada osteopenia. Bioquímica sanguínea: Calcio sérico $= 12.2\\ \\text{mg/dL}$ (VN: $8.5 - 10.5$), Fósforo sérico $= 1.8\\ \\text{mg/dL}$ (VN: $2.5 - 4.5$), $\\text{PTH}$ intacta $= 165\\ \\text{pg/mL}$ (VN: $15 - 65$).",
+        question: "¿Qué anomalía explica simultáneamente la hipercalcemia, la hipofosfatemia y la litiasis renal recurrente?",
+        options: [
+          { text: "Hiperparatiroidismo primario autónomo (ej. adenoma de glándula paratiroides).", correct: true, feedback: "¡Exacto! La secreción autónoma de PTH estimula la resorción osteoclástica (osteopenia), induce fosfaturia renal (hipofosfatemia) y satura el filtrado de calcio provocando nefrolitiasis." },
+          { text: "Hipervitaminosis D exógena por exceso de ingesta suplementaria.", correct: false, feedback: "Incorrecto: En la intoxicación por vitamina D, la hipercalcemia resultante inhibe fuertemente a la PTH (estaría suprimida, no elevada)." },
+          { text: "Hipoparatiroidismo quirúrgico poscirugía de cuello.", correct: false, feedback: "Incorrecto: El hipoparatiroidismo cursa con hipocalcemia severa y PTH indetectable." },
+          { text: "Secreción excesiva de calcitonina por carcinoma medular tiroideo.", correct: false, feedback: "Incorrecto: La calcitonina es hipocalcemiante y no genera resorción ósea ni hipercalcemia." }
+        ]
+      },
+      {
+        id: 3,
+        title: "Caso 3: Amenorrea Secundaria y Galactorrea Espontánea en Mujer Joven",
+        vignette: "Mujer de 24 años, no embarazada ni en puerperio, consulta por amenorrea (ausencia de menstruación de 5 meses) y secreción lechosa bilateral espontánea por ambos pezones (galactorrea). La resonancia magnética confirma un microadenoma hipofisario de 6 mm. Su prolactina sérica es de $180\\ \\text{ng/mL}$ (VN: $<25\\ \\text{ng/mL}$).",
+        question: "¿Por qué el exceso de prolactina ocasiona la desaparición de los ciclos menstruales (amenorrea)?",
+        options: [
+          { text: "Porque la prolactina estimula directamente a la oxitocina bloqueando el miometrio.", correct: false, feedback: "Incorrecto: La oxitocina contrae el útero pero no suprime el ciclo menstrual." },
+          { text: "Porque hiperactiva a la LH induciendo ovulaciones incesantes.", correct: false, feedback: "Incorrecto: El efecto es exactamente el opuesto: causa anovulación por frenado central." },
+          { text: "Porque concentraciones elevadas de prolactina inhiben la secreción pulsátil de GnRH en el hipotálamo, aboliendo la liberación de FSH y LH.", correct: true, feedback: "¡Brillante razonamiento neuroendocrino! La hiperprolactinemia frena el generador hipotalámico de pulsos de GnRH, lo que anula el estímulo sobre las gonadotropas adenohipofisarias, provocando hipogonadismo hipogonadotrópico y amenorrea." },
+          { text: "Porque destruye directamente las células de la granulosa ovárica.", correct: false, feedback: "Incorrecto: La falla es neuroendocrina central (eje hipotálamo-hipófisis), no una necrosis primaria ovárica." }
+        ]
+      }
+    ];
+
+    let userScores = {};
+
+    function renderClinicalCases() {
+      const cont = document.getElementById('cases-container');
+      cont.innerHTML = clinicalCases.map(c => `
+        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200" id="case-card-${c.id}">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+            <h4 class="font-bold text-slate-900 text-sm">${c.title}</h4>
+            <span class="text-xs px-2 py-0.5 rounded bg-slate-200 text-slate-700 font-medium">UCCuyo • Caso #${c.id}</span>
+          </div>
+
+          <p class="text-xs text-slate-700 leading-relaxed my-3 bg-white p-3 rounded-xl border border-slate-200">${c.vignette}</p>
+          <p class="text-xs font-bold text-slate-900 mb-2">${c.question}</p>
+
+          <div class="space-y-2">
+            ${c.options.map((opt, i) => `
+              <button onclick="answerCase(${c.id}, ${i})" id="opt-${c.id}-${i}" class="case-opt-btn w-full text-left p-2.5 rounded-xl border border-slate-200 text-xs text-slate-700 hover:bg-white transition flex items-start gap-2">
+                <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-700 font-bold flex items-center justify-center shrink-0 text-[10px]">${String.fromCharCode(65 + i)}</span>
+                <span>${opt.text}</span>
+              </button>
+            `).join('')}
+          </div>
+
+          <div id="feedback-${c.id}" class="mt-3 p-3 rounded-xl text-xs hidden"></div>
+        </div>
+      `).join('');
+      renderMath();
+    }
+
+    function answerCase(caseId, optIndex) {
+      const c = clinicalCases.find(item => item.id === caseId);
+      const selected = c.options[optIndex];
+      const fbBox = document.getElementById(`feedback-${caseId}`);
+      
+      // Bloquear botones de este caso
+      document.querySelectorAll(`[id^="opt-${caseId}-"]`).forEach(b => b.disabled = true);
+
+      fbBox.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-900', 'border-emerald-200', 'bg-rose-50', 'text-rose-900', 'border-rose-200');
+
+      if (selected.correct) {
+        userScores[caseId] = true;
+        fbBox.classList.add('bg-emerald-50', 'text-emerald-900', 'border', 'border-emerald-200');
+        fbBox.innerHTML = `<strong>Respuesta Correcta:</strong> ${selected.feedback}`;
+        document.getElementById(`opt-${caseId}-${optIndex}`).classList.add('bg-emerald-100', 'border-emerald-400', 'font-semibold');
+        showToast("¡Excelente!", "Has integrado correctamente los conceptos fisiológicos.", "success");
+      } else {
+        userScores[caseId] = false;
+        fbBox.classList.add('bg-rose-50', 'text-rose-900', 'border', 'border-rose-200');
+        fbBox.innerHTML = `<strong>Opción Incorrecta:</strong> ${selected.feedback}`;
+        document.getElementById(`opt-${caseId}-${optIndex}`).classList.add('bg-rose-100', 'border-rose-300');
+        showToast("Revisa la fisiología", "Revisa la retroalimentación diagnóstica.", "error");
+      }
+
+      // Actualizar score
+      const totalCorrect = Object.values(userScores).filter(v => v === true).length;
+      document.getElementById('quiz-score').textContent = `${totalCorrect} / ${clinicalCases.length} Correctas`;
+      renderMath();
+    }
+
+    function showToast(title, desc, type) {
+      const box = document.getElementById('notification-box');
+      const icon = document.getElementById('notif-icon');
+      document.getElementById('notif-title').textContent = title;
+      document.getElementById('notif-desc').textContent = desc;
+
+      if (type === 'success') {
+        icon.className = "w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs";
+        icon.textContent = "✓";
+      } else {
+        icon.className = "w-6 h-6 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center shrink-0 font-bold text-xs";
+        icon.textContent = "!";
+      }
+
+      box.classList.remove('translate-y-24', 'opacity-0');
+      setTimeout(() => {
+        box.classList.add('translate-y-24', 'opacity-0');
+      }, 3500);
+    }
+
+    // Inicialización global al cargar la ventana
+    window.onload = function() {
+      showAdenoCell('somato');
+      renderMath();
+    };
+  </script>
+</body>
+</html>
